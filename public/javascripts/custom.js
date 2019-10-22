@@ -1,40 +1,50 @@
-(function ($) {
-    'use strict';
 
-    $(document).on('ready', function () {
-        // -----------------------------
-        //  Screenshot Slider
-        // -----------------------------
-        $('.speaker-slider').slick({
-            slidesToShow: 3,
-            centerMode: true,
-            infinite: true,
-            autoplay: true,
-            autoplaySpeed:3000,
-            arrows:true,
-            dots:true,
-            fade:false,  
-            responsive: [
-                {
-                    breakpoint: 1440,
-                    settings: {
-                        slidesToShow: 3
-                    }
-                },
-                {
-                    breakpoint: 768,
-                    settings: {
-                        slidesToShow: 2
-                    }
-                },
-                {
-                    breakpoint: 500,
-                    settings: {
-                        slidesToShow: 1
-                    }
-                }
-            ]
-         });      
+$(document).ready(function(){
+
+    $('.speaker-slider').slick({
+        // infinite: true,
+        speed: 300,
+        infinite: true,
+        speed: 300,
+        slidesToShow: 3,
+        centerMode: true,
+        variableWidth: true,
+        responsive: "100%",
+        arrows:true,
+        autoplay: true,
+        autoplaySpeed:2000
+        // dots:true,
+        // fade:false,  
+        // responsive: [
+        //     {
+        //         breakpoint: 100,
+        //         settings: {
+        //             slidesToShow: 3
+        //         }
+        //     },
+        //     {
+        //         breakpoint: 100,
+        //         settings: {
+        //             slidesToShow: 2
+        //         }
+        //     },
+        //     {
+        //         breakpoint: 100,
+        //         settings: {
+        //             slidesToShow: 1
+        //         }
+        //     }
+        // ]
+    });      
+
+    $(window).resize(() => {
+        console.log($('.slide .item').width())
+        // $('.slide-contents').css('width', )
     });
 
-})(jQuery);
+})
+
+    // -----------------------------
+    //  Screenshot Slider
+    // -----------------------------
+  

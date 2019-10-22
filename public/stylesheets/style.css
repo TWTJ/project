@@ -1,11 +1,11 @@
-body {
+/* body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
+} */
 
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Varela Round', sans-serif;
   color: #222222;
   font-weight: 600;
 }
@@ -39,7 +39,7 @@ a {
 
 .text-overlay:after {
   content: 'CONFERENCE';
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Neucha', cursive;
   font-weight: 600;
   font-size: 215px;
   width: 100%;
@@ -55,7 +55,7 @@ a {
 
 .overlay-primary:before {
   content: '';
-  background: rgba(255, 102, 0, 0.93);
+  background: rgb(122, 147, 169);
   position: absolute;
   top: 0;
   left: 0;
@@ -105,7 +105,7 @@ a {
   left: 0;
   width: 100%;
   height: 100%;
-  background: #ff6600;
+  background:rgba(122, 147, 169);
   opacity: .85;
   transition: .3s ease;
 }
@@ -130,8 +130,8 @@ a {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgb(238, 156, 200);
-  opacity: .85;
+  background: rgb(122, 147, 169);
+  opacity: 1;
   transition: .3s ease;
 }
 
@@ -144,7 +144,7 @@ a {
 }
 
 .speakers-full-width .speaker-slider .speaker-image .primary-overlay h5, .speakers-full-width .speaker-slider .speaker-image .primary-overlay p {
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Varela Round', sans-serif;
   font-weight: 400;
 }
 
@@ -182,16 +182,11 @@ a {
   left: 60px;
 }
 
-.speakers-full-width .speaker-slider .slick-prev:before {
-  content: '\f104';
-}
-
 .speakers-full-width .speaker-slider .slick-next {
   right: 60px;
 }
 
 .speakers-full-width .speaker-slider .slick-next:before {
-  content: '\f105';
 }
 
 .speakers-full-width .speaker-slider .slick-prev, .speakers-full-width .speaker-slider .slick-next {
@@ -211,4 +206,15 @@ a {
   font-family: FontAwesome;
 }
 
+section.margin-top50 {
+  margin-top: 55px;
+}
 
+.slide-contents {
+  max-width: 900px;
+  margin: auto;
+}
+
+.slide-contents .item{
+  width: 300px;
+}
