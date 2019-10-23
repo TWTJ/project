@@ -15,8 +15,10 @@ Go 버전 1.12.x가 필요
 go 설치 : https://www.dante2k.com/590
 
 Node.js 용 Hyperledger Fabric SDK를 활용하여 Hyperledger Fabric 용 애플리케이션을 개발할 경우 버전 8은 8.9.4 이상에서 지원됩니다. Node.js 버전 10은 10.15.3 이상에서 지원
+
 (어플리케이션이 옛날 버전이 많아서 nvm으로 node버전을 관리해줌)
-(nvm : node를 여러가지 버전으로 그때그때 바꾸며 사용)
+
+(nvm : node를 여러가지 버전으로 바꿔가며 사용할수 있게 해줌)
 
 nvm 설치 : https://trustyoo86.github.io/nodejs/2019/02/18/ubuntu-nvm.html
 
