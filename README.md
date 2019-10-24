@@ -70,20 +70,23 @@ Fabric-sample project git clone
 
 다운로드후
 
+"mkdir fabric-samples"
+
 "cd fabric-samples"
 
 "git checkout v1.2.0"
 
 "git branch"
 
-샘플에 필요한 binary tool 설치(root 권한으로 해줘야 함)
+샘플에 필요한 binary tool 설치(root 권한으로 해줘야 함) 
 
-"sudo su"
+"sudo su" --> root권한으로 가는 명령어
 
-아까 경로 들어가서
+cd /src/github.com/hyperledger/fabric-samples/first-network (still at root)
 
 "curl -sSL https://goo.gl/6wtTN5 | bash -s 1.2.0"
 
+새 터미널 창 열어 실행.
 
 First-Network 실행:
 
@@ -91,7 +94,7 @@ First-Network 실행:
 
 "./byfn.sh -m generate"
 
-"./byfn.sh -m up"
+"sudo ./byfn.sh -m up"
 
 
 First-network 종료:
