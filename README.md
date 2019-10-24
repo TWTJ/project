@@ -76,7 +76,11 @@ Fabric-sample project git clone
 
 "git branch"
 
-샘플에 필요한 binary tool 설치
+샘플에 필요한 binary tool 설치(root 권한으로 해줘야 함)
+
+"sudo su"
+
+아까 경로 들어가서
 
 "curl -sSL https://goo.gl/6wtTN5 | bash -s 1.2.0"
 
