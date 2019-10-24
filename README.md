@@ -1,6 +1,6 @@
 Hyperledger fabric 환경설정
 
-**ubuntu로 진행 (virtualbox)
+**ubuntu(18.04)로 진행 (virtualbox)
 
 Docker 버전 17.06.2-ce 이상이 필요
 
@@ -22,6 +22,11 @@ Node.js 용 Hyperledger Fabric SDK를 활용하여 Hyperledger Fabric 용 애플
 
 nvm 설치 : https://trustyoo86.github.io/nodejs/2019/02/18/ubuntu-nvm.html
 
+git 설치 : 
+sudo apt-get install git-core 
+git config --global user.name "이름" 
+git config --global user.email "이메일 주소"
+
 최종확인
 
 docker --version
@@ -35,5 +40,33 @@ nvm --version
 node --version
 
 npm --version
+
+git version
+
+===================================================================== 개발환경 설정 끝
+
+
+하이퍼레저 샘플 다운로드
+"mkdir -p $GOPATH/src/github.com/hyperledger"
+"cd $GOPATH/src/github.com/hyperledger"
+
+Fabric-sample project git clone
+"git clone -b master https://github.com/hyperledger/fabric-samples.git"
+다운로드후
+"cd fabric-samples"
+"git checkout v1.2.0"
+"git branch"
+샘플에 필요한 binary tool 설치
+"curl -sSL https://goo.gl/6wtTN5 | bash -s 1.2.0"
+
+First-Network 실행:
+"cd first-network"
+"./byfn.sh -m generate"
+"./byfn.sh -m up"
+
+First-network 종료:
+"sudo ./byfn.sh -m down"
+
+
 
 
