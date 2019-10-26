@@ -105,6 +105,90 @@ First-network 종료:
 
 **서버를 다시 up시키려면 꼭 down을 해줘야함**
 
+================================================================== 테스트 끝
+
+================================================================== 직접 구축
+
+구축하다가 에러 or 파일이 꼬일시
+
+"sudo ./byfn.sh -m up"
+
+"sudo ./byfn.sh -m down"  
+
+  -->파일이 깔끔하게 다 지워짐 
+
+1. 인증서 생성(cryptogen 이용)
+
+모든 명령어는 /src/github.com/hyperledger/fabric-samples/first-network 에서 실행
+
+sudo ../bin/cryptogen generate --config=./crypto-config.yaml
+--> org1.example.com
+    org2.example.com
+    
+2. genesis.block 생성
+export FABRIC_CFG_PATH=$PWD
+
+sudo ../bin/configtxgen  -profile TwoOrgsOrdererGenesis -channelID dong -outputBlock ./channel-artifacts/genesis.block 
+** -channelID 부분에 소문자 or 숫자만 가능 (대문자쓰면 나중에 에러)
+/src/github.com/hyperledger/fabric-samples/first-network/channel-artifacts 에서 genesis.block 파일 확인
+
+3. 채널 정의
+(CHANNEL_NAME 은 아까 쓴 channelID 와 다르게써야함)
+export CHANNEL_NAME=mychannel
+
+sudo ../bin/configtxgen  -profile TwoOrgsChannel -outputCreateChannelTx ./channel-artifacts/channel.tx -channelID $CHANNEL_NAME
+
+/src/github.com/hyperledger/fabric-samples/first-network/channel-artifacts 에서 channel.tx 파일 확인
+
+4. 앵커피어 정의 (외부기관에 존재하는 피어와 통신하는 피어)
+
+sudo ../bin/configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./channel-artifacts/Org1MSPanchors.tx -channelID $CHANNEL_NAME -asOrg Org1MSP
+
+/src/github.com/hyperledger/fabric-samples/first-network/channel-artifacts 에서 Org1MSPanchors.tx, Org2MSPanchors.tx 파일 확인
+
+================================================================== 초기 설정 완료
+
+================================================================== 노드 구동
+
+1. 노드 실행
+
+sudo docker-compose -f docker-compose-cli.yaml up
+
+2. 노드 접속
+
+sudo docker exec -it cli /bin/bash
+
+3. 채널 생성
+
+export CHANNEL_NAME=mychannel
+
+peer channel create -o orderer.example.com:7050 -c $CHANNEL_NAME -f ./channel-artifacts/channel.tx --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/msp/tlscacerts/tlsca.example.com-cert.pem 
+
+mychannel.block 파일 확인
+
+4.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
 
 
 
