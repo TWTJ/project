@@ -249,7 +249,49 @@ p = path
 peer chaincode install -n mycc -v 1.0 -l golang -p github.com/chaincode/chaincode_example02/go
 
 체인코드 배포
-peer chaincode instantiate -o orderer.example.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C mychannel -n mycc -l golang -v 1.0 -c '{"Args":["init","a","100","b","200"]}' -P 'AND ('\''Org1MSP.peer'\'','\''Org2MSP.peer'\'')'
+peer chaincode instantiate -o orderer.example.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C mychannel -n mycc -l golang -v 1.0 -c '{"Args":["init","a","100","b","200"]}' -P 'AND ('\''Org1MSP.peer'\'','\''Org2MSP.peer'\'')'\
+
+===================================================================== 기본 서버 구추 끝
+
+체인코드 개발 모드 (앞선 과정을 반복하기에 너무 복잡 --> 체인코드만 따로 분리해서 개발 배포)
+
+
+# 첫 번째 터미널
+
+/src/github.com/hyperledger/fabric-samples/chaincode-docker-devmode 이동
+
+docker-compose -f docker-compose-simple.yaml.up
+
+# 두 번째 터미널
+
+docker exec -it chaincode /bin/bash
+
+cd sacc
+
+go build 하고 
+
+/opt/gopath/src 로 이동후
+
+CORE_PEER_ADDRESS=peer:7052 CORE_CHAINCODE_ID_NAME=mycc:0 ./sacc
+
+# 세 번째 터미널 (설치 배포)
+
+docker exec -it cli /bin/bash
+
+peer chaincode install -p chaincodedev/chaincode/sacc -n mycc -v 0 
+
+peer chaincode instantiate -n mycc -v 0 -c '{"Args":["a","10"]}' -C myc
+
+query,invoke
+
+peer chaincode invoke -n mycc -c '{"Args":["set","a","20"]}' -C myc
+
+peer chaincode query -n mycc -c '{"Args":["query","a"]}' -C myc
+
+
+
+
+
 
 
 
