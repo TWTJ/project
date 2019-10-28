@@ -1,3 +1,4 @@
+```
 Hyperledger fabric 환경설정
 
 **ubuntu(18.04)로 진행 (virtualbox)
@@ -27,14 +28,11 @@ Node.js 용 Hyperledger Fabric SDK를 활용하여 Hyperledger Fabric 용 애플
 nvm 설치 : https://trustyoo86.github.io/nodejs/2019/02/18/ubuntu-nvm.html
 
 
-```
+
 git 설치 : 
 sudo apt-get install git-core 
 git config --global user.name "이름" 
 git config --global user.email "이메일 주소"
-
-```
-
 
 
 최종확인
@@ -288,7 +286,7 @@ peer chaincode invoke -n mycc -c '{"Args":["set","a","20"]}' -C myc
 
 peer chaincode query -n mycc -c '{"Args":["query","a"]}' -C myc
 
-
+```
 
 
 
