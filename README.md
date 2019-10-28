@@ -121,24 +121,24 @@ First-network 종료:
 
 모든 명령어는 /src/github.com/hyperledger/fabric-samples/first-network 에서 실행
 
-sudo ../bin/cryptogen generate --config=./crypto-config.yaml
---> org1.example.com
-    org2.example.com
+sudo ../bin/cryptogen generate --config=./crypto-config.yaml (명령어)
+
+-->(출력 값)   org1.example.com
+              org2.example.com 
     
 2. genesis.block 생성
 export FABRIC_CFG_PATH=$PWD
 
-sudo ../bin/configtxgen  -profile TwoOrgsOrdererGenesis -channelID dong -outputBlock ./channel-artifacts/genesis.block 
-** -channelID 부분에 소문자 or 숫자만 가능 (대문자쓰면 나중에 에러)
-/src/github.com/hyperledger/fabric-samples/first-network/channel-artifacts 에서 genesis.block 파일 확인
+sudo ../bin/configtxgen  -profile TwoOrgsOrdererGenesis -channelID (본인아이디) -outputBlock ./channel-artifacts/genesis.block 
+** -(본인아이디) 부분에 소문자 or 숫자만 가능 (대문자쓰면 나중에 에러)
 
-3. 채널 정의
-(CHANNEL_NAME 은 아까 쓴 channelID 와 다르게써야함)
+3. 채널 정의 
+
 export CHANNEL_NAME=mychannel
 
 sudo ../bin/configtxgen  -profile TwoOrgsChannel -outputCreateChannelTx ./channel-artifacts/channel.tx -channelID $CHANNEL_NAME
 
-/src/github.com/hyperledger/fabric-samples/first-network/channel-artifacts 에서 channel.tx 파일 확인
+/src/github.com/hyperledger/fabric-samples/first-network/channel-artifacts 에서 channel.tx , genesis.block 파일 확인 (ls)
 
 4. 앵커피어 정의 (외부기관에 존재하는 피어와 통신하는 피어)
 
@@ -282,11 +282,11 @@ peer chaincode install -p chaincodedev/chaincode/sacc -n mycc -v 0
 
 peer chaincode instantiate -n mycc -v 0 -c '{"Args":["a","10"]}' -C myc
 
-query(조회),invoke(초기세팅)
+query,invoke
 
-peer chaincode invoke -n mycc -c '{"Args":["set","a","20"]}' -C myc (a에 20을 세팅)
+peer chaincode invoke -n mycc -c '{"Args":["set","a","20"]}' -C myc
 
-peer chaincode query -n mycc -c '{"Args":["query","a"]}' -C myc (a를 조회)
+peer chaincode query -n mycc -c '{"Args":["query","a"]}' -C myc
 
 
 
