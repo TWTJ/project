@@ -27,13 +27,13 @@ Node.js 용 Hyperledger Fabric SDK를 활용하여 Hyperledger Fabric 용 애플
 nvm 설치 : https://trustyoo86.github.io/nodejs/2019/02/18/ubuntu-nvm.html
 
 
-
+```
 git 설치 : 
 sudo apt-get install git-core 
 git config --global user.name "이름" 
 git config --global user.email "이메일 주소"
 
-
+```
 
 
 
