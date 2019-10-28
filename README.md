@@ -282,11 +282,11 @@ peer chaincode install -p chaincodedev/chaincode/sacc -n mycc -v 0
 
 peer chaincode instantiate -n mycc -v 0 -c '{"Args":["a","10"]}' -C myc
 
-query,invoke
+query(조회),invoke(초기세팅)
 
-peer chaincode invoke -n mycc -c '{"Args":["set","a","20"]}' -C myc
+peer chaincode invoke -n mycc -c '{"Args":["set","a","20"]}' -C myc (a에 20을 세팅)
 
-peer chaincode query -n mycc -c '{"Args":["query","a"]}' -C myc
+peer chaincode query -n mycc -c '{"Args":["query","a"]}' -C myc (a를 조회)
 
 
 
