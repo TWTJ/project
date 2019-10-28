@@ -1,4 +1,3 @@
-
 Hyperledger fabric 환경설정
 
 **ubuntu(18.04)로 진행 (virtualbox)
@@ -33,6 +32,9 @@ git 설치 :
 sudo apt-get install git-core 
 git config --global user.name "이름" 
 git config --global user.email "이메일 주소"
+
+
+
 
 
 최종확인
@@ -122,9 +124,11 @@ First-network 종료:
 sudo ../bin/cryptogen generate --config=./crypto-config.yaml (명령어)
 
 -->(출력 값)   org1.example.com
+
               org2.example.com 
     
 2. genesis.block 생성
+
 export FABRIC_CFG_PATH=$PWD
 
 sudo ../bin/configtxgen  -profile TwoOrgsOrdererGenesis -channelID (본인아이디) -outputBlock ./channel-artifacts/genesis.block 
@@ -140,9 +144,15 @@ sudo ../bin/configtxgen  -profile TwoOrgsChannel -outputCreateChannelTx ./channe
 
 4. 앵커피어 정의 (외부기관에 존재하는 피어와 통신하는 피어)
 
-sudo ../bin/configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./channel-artifacts/Org1MSPanchors.tx -channelID $CHANNEL_NAME -asOrg Org1MSP
+다시 first-network 폴더에서,
+
+(1) sudo ../bin/configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./channel-artifacts/Org1MSPanchors.tx -channelID $CHANNEL_NAME -asOrg Org1MSP
+
+(2) sudo ../bin/configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./channel-artifacts/Org2MSPanchors.tx -channelID $CHANNEL_NAME -asOrg Org2MSP
+
 
 /src/github.com/hyperledger/fabric-samples/first-network/channel-artifacts 에서 Org1MSPanchors.tx, Org2MSPanchors.tx 파일 확인
+
 
 ================================================================== 초기 설정 완료
 
@@ -151,6 +161,8 @@ sudo ../bin/configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./chann
 1. 노드 실행
 
 sudo docker-compose -f docker-compose-cli.yaml up
+
+새로운 터미널 창에서,
 
 2. 노드 접속
 
@@ -165,7 +177,10 @@ peer channel create -o orderer.example.com:7050 -c $CHANNEL_NAME -f ./channel-ar
 mychannel.block 파일 확인
 
 4. 채널 참가
---peer0.org1--
+
+(peer0,org1) (peer1,org1) (peer0,org2) (peer1,org2) 4가지의 환경변수들 // 각각의 6가지 단계 반복 ( 명령어 한번에 입력 가능)
+
+1--*) peer0.org1
 
 export CORE_PEER_LOCALMSPID="Org1MSP"
 
@@ -180,11 +195,11 @@ S_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOr
 
 export CORE_PEER_ADDRESS=peer0.org1.example.com:7051
 
-peer channel join -b mychannel.block
+peer channel join -b mychannel.block 
 
--->INFO 002 Successfully submitted proposal to join channel 나오면 성공
+-->INFO 002 Successfully submitted proposal to join channel   나오면 첫번째 환경 변수 성공
 
---peer1.org1--
+2--*) peer1.org1
 
 export CORE_PEER_LOCALMSPID="Org1MSP"
 
@@ -201,7 +216,7 @@ export CORE_PEER_ADDRESS=peer1.org1.example.com:7051
 
 peer channel join -b mychannel.block
 
---peer0.org2--
+3--*) peer0.org2
 
 export CORE_PEER_LOCALMSPID="Org2MSP"
 
@@ -211,15 +226,27 @@ export CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric
 
 export CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/server.key 
 
-export CORE_PEER_TL
-S_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/users/Admin\@org2.example.com/msp
+export CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/users/Admin\@org2.example.com/msp
 
 export CORE_PEER_ADDRESS=peer0.org2.example.com:7051
 
-CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp CORE_PEER_ADDRESS=peer0.org2.example.com:7051 CORE_PEER_LOCALMSPID="Org2MSP" CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt peer channel join -b mychannel.block
+peer channel join -b mychannel.block
 
---peer1.org2--
-CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp CORE_PEER_ADDRESS=peer1.org2.example.com:7051 CORE_PEER_LOCALMSPID="Org2MSP" CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer1.org2.example.com/tls/ca.crt peer channel join -b mychannel.block
+4--*) peer1.org2
+
+export CORE_PEER_LOCALMSPID="Org2MSP"
+
+export CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer1.org2.example.com/tls/server.crt 
+
+export CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer1.org2.example.com/tls/ca.crt 
+
+export CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer1.org2.example.com/tls/server.key 
+
+export CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/users/Admin\@org2.example.com/msp
+
+export CORE_PEER_ADDRESS=peer1.org2.example.com:7051
+
+peer channel join -b mychannel.block
 
 5.앵커피어 업데이트
 
@@ -243,13 +270,19 @@ n = name
 v = version
 p = path
 
-체인코드 설치(각 피어마다 해줘야함)
+
+체인코드 설치(각 피어마다 해줘야함 --> 1--*) 부터 4--*) 까지)
+
+6개 세트 이후 peer channel join -b mychannel.block 대신 
+
+아래의 명령어 입력
+
 peer chaincode install -n mycc -v 1.0 -l golang -p github.com/chaincode/chaincode_example02/go
 
 체인코드 배포
 peer chaincode instantiate -o orderer.example.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C mychannel -n mycc -l golang -v 1.0 -c '{"Args":["init","a","100","b","200"]}' -P 'AND ('\''Org1MSP.peer'\'','\''Org2MSP.peer'\'')'\
 
-===================================================================== 기본 서버 구추 끝
+===================================================================== 기본 서버 구축 끝
 
 체인코드 개발 모드 (앞선 과정을 반복하기에 너무 복잡 --> 체인코드만 따로 분리해서 개발 배포)
 
@@ -285,6 +318,9 @@ query,invoke
 peer chaincode invoke -n mycc -c '{"Args":["set","a","20"]}' -C myc
 
 peer chaincode query -n mycc -c '{"Args":["query","a"]}' -C myc
+
+
+
 
 
 
