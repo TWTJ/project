@@ -1,4 +1,4 @@
-```
+
 Hyperledger fabric 환경설정
 
 **ubuntu(18.04)로 진행 (virtualbox)
@@ -285,9 +285,6 @@ query,invoke
 peer chaincode invoke -n mycc -c '{"Args":["set","a","20"]}' -C myc
 
 peer chaincode query -n mycc -c '{"Args":["query","a"]}' -C myc
-
-```
-
 
 
 
