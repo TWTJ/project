@@ -63,11 +63,11 @@ npm --version
 git version
 ```
 
-**_ ================================================================== 개발환경 설정 끝
+** ================================================================== 개발환경 설정 끝
 
 
 
-*_ 하이퍼레저 샘플 다운로드
+* 하이퍼레저 샘플 다운로드
 
 ```
 mkdir -p $GOPATH/src/github.com/hyperledger
@@ -81,7 +81,7 @@ cd $GOPATH/src/github.com/hyperledger
 git clone -b master https://github.com/hyperledger/fabric-samples.git
 ```
 
-*_ 다운로드후
+* 다운로드후
 
 ```
 mkdir fabric-samples
@@ -93,7 +93,7 @@ git checkout v1.2.0
 git branch
 ```
 
-*_ 샘플에 필요한 binary tool 설치(root 권한으로 해줘야 함) 
+* 샘플에 필요한 binary tool 설치(root 권한으로 해줘야 함) 
 
 ```
 sudo su   //root권한으로 가는 명령어
@@ -106,7 +106,7 @@ curl -sSL https://goo.gl/6wtTN5 | bash -s 1.2.0
 
 //새 터미널 창 열어 실행.
 
-*_ First-Network 실행:
+* First-Network 실행:
 
 ```
 cd first-network
@@ -116,7 +116,7 @@ cd first-network
 sudo ./byfn.sh -m up
 ```
 
-*_ First-network 종료:
+* First-network 종료:
 
 ```
 sudo ./byfn.sh -m down
@@ -130,7 +130,7 @@ sudo ./byfn.sh -m down
 
 # ================================================================== 직접 구축
 
-*_ 구축하다가 에러 or 파일이 꼬일시
+* 구축하다가 에러 or 파일이 꼬일시
 
 ```
 sudo ./byfn.sh -m up
@@ -140,7 +140,7 @@ sudo ./byfn.sh -m down
   -->파일이 깔끔하게 다 지워짐
  ```
 
-*_ 1. 인증서 생성(cryptogen 이용)
+* 1. 인증서 생성(cryptogen 이용)
 
 모든 명령어는 /src/github.com/hyperledger/fabric-samples/first-network 에서 실행
 
@@ -151,7 +151,7 @@ sudo ../bin/cryptogen generate --config=./crypto-config.yaml (명령어)
 
               org2.example.com 
 ```    
-*_ 2. genesis.block 생성
+* 2. genesis.block 생성
 
 ```
 export FABRIC_CFG_PATH=$PWD
@@ -160,7 +160,7 @@ sudo ../bin/configtxgen  -profile TwoOrgsOrdererGenesis -channelID (본인아이
 ** -(본인아이디) 부분에 소문자 or 숫자만 가능 (대문자쓰면 나중에 에러)
 ```
 
-*_ 3. 채널 정의 
+* 3. 채널 정의 
 
 ```
 export CHANNEL_NAME=mychannel
@@ -170,7 +170,7 @@ sudo ../bin/configtxgen  -profile TwoOrgsChannel -outputCreateChannelTx ./channe
 /src/github.com/hyperledger/fabric-samples/first-network/channel-artifacts 에서 channel.tx , genesis.block 파일 확인 (ls)
 ```
 
-*_ 4. 앵커피어 정의 (외부기관에 존재하는 피어와 통신하는 피어)
+* 4. 앵커피어 정의 (외부기관에 존재하는 피어와 통신하는 피어)
 
 다시 first-network 폴더에서,
 ```
@@ -186,7 +186,7 @@ sudo ../bin/configtxgen  -profile TwoOrgsChannel -outputCreateChannelTx ./channe
 
 # ================================================================== 노드 구동
 
-*_ 1. 노드 실행
+* 1. 노드 실행
 
 ```
 sudo docker-compose -f docker-compose-cli.yaml up
@@ -194,14 +194,14 @@ sudo docker-compose -f docker-compose-cli.yaml up
 
 
 
-*_ 2. 노드 접속
+* 2. 노드 접속
 
 새로운 터미널 창 오픈
 ```
 sudo docker exec -it cli /bin/bash
 ```
 
-*_ 3. 채널 생성
+* 3. 채널 생성
 
 ```
 export CHANNEL_NAME=mychannel
@@ -211,7 +211,7 @@ peer channel create -o orderer.example.com:7050 -c $CHANNEL_NAME -f ./channel-ar
 mychannel.block 파일 확인
 
 ```
-*_ 4. 채널 참가
+* 4. 채널 참가
 
 (peer0,org1) (peer1,org1) (peer0,org2) (peer1,org2) 4가지의 환경변수들 // 각각의 6가지 단계 반복 ( 명령어 한번에 입력 가능)
 
@@ -285,7 +285,7 @@ export CORE_PEER_ADDRESS=peer1.org2.example.com:7051
 peer channel join -b mychannel.block
 ```
 
-*_ 5.앵커피어 업데이트
+* 5.앵커피어 업데이트
 
 peer0org1 앵커피어 업데이트
 
@@ -299,7 +299,7 @@ CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/c
 peer channel update -o orderer.example.com:7050 -c $CHANNEL_NAME -f ./channel-artifacts/Org1MSPanchors.tx --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
 ```
 
-*_ peer0org2 앵커피어 업데이트
+* peer0org2 앵커피어 업데이트
 
 ```
 CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp CORE_PEER_ADDRESS=peer0.org2.example.com:7051 CORE_PEER_LOCALMSPID="Org2MSP" CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt peer channel update -o orderer.example.com:7050 -c $CHANNEL_NAME -f ./channel-artifacts/Org2MSPanchors.tx --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
@@ -320,7 +320,7 @@ p = path
 peer chaincode install -n mycc -v 1.0 -l golang -p github.com/chaincode/chaincode_example02/go
 ```
 
-*_ 체인코드 배포(a=100,b=200)
+* 체인코드 배포(a=100,b=200)
 ```
 peer chaincode instantiate -o orderer.example.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C mychannel -n mycc -l golang -v 1.0 -c '{"Args":["init","a","100","b","200"]}' -P 'AND ('\''Org1MSP.peer'\'','\''Org2MSP.peer'\'')'\
 ```
