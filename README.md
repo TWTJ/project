@@ -1,7 +1,7 @@
 
 # Hyperledger fabric 개발환경설정
 
-**ubuntu(18.04)로 진행 (virtualbox)
+** ubuntu(18.04)로 진행 (virtualbox)
 
 
 * Docker 버전 17.06.2-ce 이상이 필요
