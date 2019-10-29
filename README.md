@@ -1,5 +1,5 @@
 
-Hyperledger fabric 환경설정
+# Hyperledger fabric 개발환경설정
 
 **ubuntu(18.04)로 진행 (virtualbox)
 
@@ -33,17 +33,21 @@ nvm 설치 : https://trustyoo86.github.io/nodejs/2019/02/18/ubuntu-nvm.html
 ```
 
 
-git 설치 : 
+* git 설치 
+
+```
 sudo apt-get install git-core 
 git config --global user.name "이름" 
 git config --global user.email "이메일 주소"
+```
 
 
 
 
 
-최종확인
+* 최종확인
 
+```
 docker --version
 
 docker-compose --version
@@ -57,134 +61,161 @@ node --version
 npm --version
 
 git version
+```
 
-================================================================== 개발환경 설정 끝
-
-
-
-하이퍼레저 샘플 다운로드
-
-"mkdir -p $GOPATH/src/github.com/hyperledger"
-
-"cd $GOPATH/src/github.com/hyperledger"
-
-Fabric-sample project git clone
-
-"git clone -b master https://github.com/hyperledger/fabric-samples.git"
+**_ ================================================================== 개발환경 설정 끝
 
 
-다운로드후
 
-"mkdir fabric-samples"
+*_ 하이퍼레저 샘플 다운로드
 
-"cd fabric-samples"
+```
+mkdir -p $GOPATH/src/github.com/hyperledger
 
-"git checkout v1.2.0"
+cd $GOPATH/src/github.com/hyperledger
+```
 
-"git branch"
+* Fabric-sample project git clone
 
-샘플에 필요한 binary tool 설치(root 권한으로 해줘야 함) 
+```
+git clone -b master https://github.com/hyperledger/fabric-samples.git
+```
 
-"sudo su" --> root권한으로 가는 명령어
+*_ 다운로드후
+
+```
+mkdir fabric-samples
+
+cd fabric-samples
+
+git checkout v1.2.0
+
+git branch
+```
+
+*_ 샘플에 필요한 binary tool 설치(root 권한으로 해줘야 함) 
+
+```
+sudo su   //root권한으로 가는 명령어
 
 cd /src/github.com/hyperledger/fabric-samples/first-network (still at root)
 
-"curl -sSL https://goo.gl/6wtTN5 | bash -s 1.2.0"
+curl -sSL https://goo.gl/6wtTN5 | bash -s 1.2.0
 
-새 터미널 창 열어 실행.
+```
 
-First-Network 실행:
+//새 터미널 창 열어 실행.
 
-"cd first-network"
+*_ First-Network 실행:
 
-"./byfn.sh -m generate"
+```
+cd first-network
 
-"sudo ./byfn.sh -m up"
+./byfn.sh -m generate
 
+sudo ./byfn.sh -m up
+```
 
-First-network 종료:
+*_ First-network 종료:
 
-"sudo ./byfn.sh -m down"
+```
+sudo ./byfn.sh -m down
+```
 
 
 
 **서버를 다시 up시키려면 꼭 down을 해줘야함**
 
-================================================================== 테스트 끝
+# ================================================================== 테스트 끝
 
-================================================================== 직접 구축
+# ================================================================== 직접 구축
 
-구축하다가 에러 or 파일이 꼬일시
+*_ 구축하다가 에러 or 파일이 꼬일시
 
-"sudo ./byfn.sh -m up"
+```
+sudo ./byfn.sh -m up
 
-"sudo ./byfn.sh -m down"  
+sudo ./byfn.sh -m down
 
-  -->파일이 깔끔하게 다 지워짐 
+  -->파일이 깔끔하게 다 지워짐
+ ```
 
-1. 인증서 생성(cryptogen 이용)
+*_ 1. 인증서 생성(cryptogen 이용)
 
 모든 명령어는 /src/github.com/hyperledger/fabric-samples/first-network 에서 실행
 
+```
 sudo ../bin/cryptogen generate --config=./crypto-config.yaml (명령어)
 
 -->(출력 값)   org1.example.com
 
               org2.example.com 
-    
-2. genesis.block 생성
+```    
+*_ 2. genesis.block 생성
 
+```
 export FABRIC_CFG_PATH=$PWD
 
 sudo ../bin/configtxgen  -profile TwoOrgsOrdererGenesis -channelID (본인아이디) -outputBlock ./channel-artifacts/genesis.block 
 ** -(본인아이디) 부분에 소문자 or 숫자만 가능 (대문자쓰면 나중에 에러)
+```
 
-3. 채널 정의 
+*_ 3. 채널 정의 
 
+```
 export CHANNEL_NAME=mychannel
 
 sudo ../bin/configtxgen  -profile TwoOrgsChannel -outputCreateChannelTx ./channel-artifacts/channel.tx -channelID $CHANNEL_NAME
 
 /src/github.com/hyperledger/fabric-samples/first-network/channel-artifacts 에서 channel.tx , genesis.block 파일 확인 (ls)
+```
 
-4. 앵커피어 정의 (외부기관에 존재하는 피어와 통신하는 피어)
+*_ 4. 앵커피어 정의 (외부기관에 존재하는 피어와 통신하는 피어)
 
 다시 first-network 폴더에서,
-
+```
 (1) sudo ../bin/configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./channel-artifacts/Org1MSPanchors.tx -channelID $CHANNEL_NAME -asOrg Org1MSP
 
 (2) sudo ../bin/configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./channel-artifacts/Org2MSPanchors.tx -channelID $CHANNEL_NAME -asOrg Org2MSP
 
 
 /src/github.com/hyperledger/fabric-samples/first-network/channel-artifacts 에서 Org1MSPanchors.tx, Org2MSPanchors.tx 파일 확인
+```
 
+# ================================================================== 초기 설정 완료
 
-================================================================== 초기 설정 완료
+# ================================================================== 노드 구동
 
-================================================================== 노드 구동
+*_ 1. 노드 실행
 
-1. 노드 실행
-
+```
 sudo docker-compose -f docker-compose-cli.yaml up
+```
 
-새로운 터미널 창에서,
 
-2. 노드 접속
 
+*_ 2. 노드 접속
+
+새로운 터미널 창 오픈
+```
 sudo docker exec -it cli /bin/bash
+```
 
-3. 채널 생성
+*_ 3. 채널 생성
 
+```
 export CHANNEL_NAME=mychannel
 
 peer channel create -o orderer.example.com:7050 -c $CHANNEL_NAME -f ./channel-artifacts/channel.tx --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/msp/tlscacerts/tlsca.example.com-cert.pem 
 
 mychannel.block 파일 확인
 
-4. 채널 참가
+```
+*_ 4. 채널 참가
 
 (peer0,org1) (peer1,org1) (peer0,org2) (peer1,org2) 4가지의 환경변수들 // 각각의 6가지 단계 반복 ( 명령어 한번에 입력 가능)
 
+```
 1--*) peer0.org1
 
 export CORE_PEER_LOCALMSPID="Org1MSP"
@@ -252,11 +283,13 @@ export CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/pee
 export CORE_PEER_ADDRESS=peer1.org2.example.com:7051
 
 peer channel join -b mychannel.block
+```
 
-5.앵커피어 업데이트
+*_ 5.앵커피어 업데이트
 
 peer0org1 앵커피어 업데이트
 
+```
 CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
 CORE_PEER_ADDRESS=peer0.org1.example.com:7051
 CORE_PEER_LOCALMSPID="Org1MSP"
@@ -264,12 +297,13 @@ CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/c
 
 
 peer channel update -o orderer.example.com:7050 -c $CHANNEL_NAME -f ./channel-artifacts/Org1MSPanchors.tx --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
+```
 
+*_ peer0org2 앵커피어 업데이트
 
-peer0org2 앵커피어 업데이트
-
+```
 CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp CORE_PEER_ADDRESS=peer0.org2.example.com:7051 CORE_PEER_LOCALMSPID="Org2MSP" CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt peer channel update -o orderer.example.com:7050 -c $CHANNEL_NAME -f ./channel-artifacts/Org2MSPanchors.tx --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
-
+```
 
 n = name
 v = version
@@ -282,17 +316,26 @@ p = path
 
 아래의 명령어 입력
 
+```
 peer chaincode install -n mycc -v 1.0 -l golang -p github.com/chaincode/chaincode_example02/go
+```
 
-체인코드 배포(a=100,b=200)
+*_ 체인코드 배포(a=100,b=200)
+```
 peer chaincode instantiate -o orderer.example.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C mychannel -n mycc -l golang -v 1.0 -c '{"Args":["init","a","100","b","200"]}' -P 'AND ('\''Org1MSP.peer'\'','\''Org2MSP.peer'\'')'\
+```
 
 
 query : 토큰 조회
+```
 peer chaincode query -C mychannel -n mycc -c '{"Args":["query","a"]}'  (a의 데이터를 조회)
+```
+
 
 invoke : 토큰 이동
+```
 peer chaincode invoke -o orderer.example.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C mychannel -n mycc --peerAddresses peer0.org1.example.com:7051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt --peerAddresses peer0.org2.example.com:7051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt -c '{"Args":["invoke","a","b","10"]}'
+```
 (a-->b 로 10 이동)
 (a=90,b=210)
 
@@ -349,30 +392,6 @@ peer chaincode query -n mycc -c '{"Args":["query","a"]}' -C myc
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
 
 
 
