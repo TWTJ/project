@@ -1,0 +1,61 @@
+@import url("//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css");
+html {
+    background: #7a93a9;  /* fallback for old browsers */ 
+}
+.login-block{
+    background: -webkit-linear-gradient(to bottom, #d1e3f3, #7a93a9);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #d1e3f3, #7a93a9); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */    width: 100%;
+    position:relative;
+    margin: auto;
+    float:left;
+    height: 100%;
+    padding : 200px 0 ;
+}
+
+.container-block{
+    background:#fff; 
+    border-radius: 10px; 
+    box-shadow:15px 20px 0px rgba(0,0,0,0.1);
+    width:70%; 
+    margin-left: 14%;
+
+}
+.image {border-radius:0 10px 10px 0;}
+.img-box {border-radius:0 10px 10px 0;}
+.photo-box { 
+    display: none;
+    background-image: url("../images/7.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.img-caption{text-align:left; left:5%;}
+.login-sec{padding: 50px 30px; position:relative;}
+.login-sec .copy-text{position:absolute; width:80%; bottom:20px; font-size:13px; text-align:center;}
+.login-sec .copy-text i{color:#FEB58A;}
+.login-sec .copy-text a{color:#70ace0;}
+.login-sec h2{margin-bottom:30px; font-weight:800; font-size:30px; color:#7a93a9;}
+.login-sec h2:after{content:" "; width:100px; height:5px; background:#93b6ed; display:block; margin-top:20px; border-radius:3px; margin-left:auto;margin-right:auto}
+.btn-login{background: #7a93a9; color:#fff; font-weight:600;}
+.banner-text{width:70%; position:absolute; bottom:40px; padding-left:20px;}
+.banner-text h2{color:#fff; font-weight:600;}
+.banner-text h2:after{content:" "; width:100px; height:5px; background:#FFF; display:block; margin-top:20px; border-radius:3px;}
+.banner-text p{color:#fff;}
+.copy-text{font-family: 'Rock Salt', cursive;}
+.font-yoon{font-family: 'Varela Round', sans-serif;}
+.img .content{
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%); 
+    color: white;
+    z-index: 2;
+    text-align: center;
+}
+
+@media screen and (min-width: 768px) {
+    .photo-box {
+        display: block;
+    }
+  }
