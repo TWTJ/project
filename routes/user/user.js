@@ -53,9 +53,11 @@ router.post('/signin', async function (req, res){
     if (dbPassword === hashPassword) {
         console.log ('로그인 성공')
         res.redirect('/');
+        alert(" 로그인성공 ")
     }else {
         console.log('비밀번호 불일치')
         res.redirect('/signin')
+        alert("비밀번호가 맞지 않습니다")
     }
 
 });

@@ -1,10 +1,10 @@
 $(document).ready(function () {
 
     $("#signup").click(function () {
-      location.href = "/add";
+      location.href = "/signup";
     })
     $("#signin").click(function () {
-      location.href = "/login";
+      location.href = "/signin";
     })
     
   
