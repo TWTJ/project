@@ -5,37 +5,94 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Sign Up</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link href="/stylesheets/sign.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Pacifico|Varela+Round|Rock+Salt" rel="stylesheet">
+
+    <title>::TWTJ:: SIGN UP</title>
 </head>
+
 <body>
-    <div class="signup" style="text-align: center">
-        <h1 style="text-align: center">SIGN UP</h1>
-        
-        <form action = "/API_USER/user/sign_up" method = "post">
-            NAME: <input type = "text" name = "user_name" placeholder = "Please enter Name"> <br> 
-            ID: <input type = "text" name = "user_Id" placeholder = "Please enter ID"> <br> 
-            PASSWORD: <input type = "password" name = "user_pw" placeholder = "Please enter Password"> <br> 
-            E-mail: <input type = "text" name = "user_email" placeholder = "Please enter E-mail"> <br> 
-            <input type ="submit" value= "SIGN UP">  
-        </form>
-        
-        <!-- <form name="signin_id" action="" method="post">
-            NAME : <input type="text" name="user_name" value="" placeholder="Please enter Name.">
-        </form>
-        
-        <form name="signin_id" action="" method="post">
-            ID : <input type="text" name="user_Id" value="" placeholder="Please enter ID.">
-        </form>
-        
-        <form name="signin_pw" action="" method="post">
-            PASSWORD : <input type="password" name="user_pw" value="" placeholder="Please enter Password.">
-        </form>
-       
-        <form name="signin_email" action="" method="post">
-            E-mail : <input type="emil" name="user_email" value="" placeholder="Please enter E-mail.">
-        </form>
-          -->
-    
-    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#" style="font-family: 'Pacifico', cursive;">T W T J</a>
+            <!-- <span class="navbar-text">ddd</span>-->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto" style="font-family: 'Varela Round', sans-serif;">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Home
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/signin">Sign In</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/signup">Sign Up</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!------ Include the above in your HEAD tag ---------->
+
+    <section class="signup-block">
+        <div class="container-block">
+            <div class="row">
+                <div class="col-md-8 banner-sec photoface">
+                    <div class="img">
+                        <div id="sign_in_photo" class="image">
+                            <!-- <img src="images/7.jpg" alt="signin" class="img-box"> -->
+                            <div class="img-caption d-none d-md-block">
+                                <div class="content font-yoon">
+                                    <h3>TWTJ MALL is special for you.</h3>
+                                    <p>You can sign up freely. Welcome!! 
+                                            <br>You can enjoy shopping here^^.</br></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 login-sec sign-box">
+                    <h2 class="text-center font-yoon">Sign Up!</h2>
+                    <form class="login-form" action = "/API_USER/user/sign_up" method = "post">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1" class="text-uppercase font-yoon">Name : </label>
+                            <input type="text" class="form-control" name = "user_name" placeholder="Please enter Name." >
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1" class="text-uppercase font-yoon">Id : </label>
+                            <input type="text" class="form-control" name = "user_Id" placeholder="Please enter ID." >
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1" class="text-uppercase font-yoon">Password : </label>
+                            <input type="password" class="form-control" name = "user_pw" placeholder="Please enter Password.">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1" class="text-uppercase font-yoon">E-mail : </label>
+                            <input type="text" class="form-control" name = "user_email" placeholder="Please enter E-mail.">
+                        </div>
+
+                        <button type="submit" class="btn btn-login float-right font-yoon">Submit</button>
+                    </form>
+                    <div class="copy-text">Created with <i class="fa fa-heart"></i> by TWTJ</div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
 </body>
+
 </html>
+
+
+
