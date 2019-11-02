@@ -6,9 +6,48 @@ $(document).ready(function () {
     $("#signin").click(function () {
       location.href = "/signin";
     })
-    
   
-  /*
+  
+  // // submit 처리
+  //   $(document).ready(function() {
+  //     $("/signin/form").submit(function(event) {
+  //     const email = $('#user_email').val();
+  //     const pw = $('#user_pw').val();
+       
+  //     if (email !="" && pw !="") {
+  //         alert("user_email :: " + email +", user_pw :: " + pw);
+  //     }
+       
+  //     if (email =="") {
+  //         alert("E-mail를 입력해주세요.");
+  //         event.preventDefault();
+  //       return;
+  //     }
+       
+  //     if (pw =="") {
+  //         alert("password 를 입력해주세요.");
+  //         event.preventDefault();
+  //       return;
+  //     }  
+  //   });
+     
+  //   $('#btn').click(function () {
+  //     $("/signin/form").submit();
+  //   });
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    /*
     $('.form-signin button').click(function(){
       
       event.preventDefault();

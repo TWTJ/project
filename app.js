@@ -10,6 +10,8 @@ var PAGEAPI = require('./routes/page');
 var STROEAPI = require('./routes/store');
 var USERAPI = require('./routes/user');
 var app = express();
+var session = require('express-session'); // log-in session
+var FileStore = require('session-file-store')(session);
 
 //db 연결
 db();
@@ -25,12 +27,25 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.urlencoded({extended: false}));
+//session 미들웨어 설정
+app.use(session({
+    key:'sid',
+    secret: 'secret',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      maxAge: 24000 * 60 * 60 // 쿠키 유효기간 24시간
+    },
+    store: new FileStore()
 
+  }));
 app.use('/', PAGEAPI); 
 app.use('/API_STORE', STROEAPI);
 app.use('/API_USER', USERAPI);
 app.use('/signin', PAGEAPI);
 app.use('/signup', PAGEAPI);
+app.use('/product',PAGEAPI);
 // app.use('/sign_up', PAGEAPI);
 
 // catch 404 and forward to error handler

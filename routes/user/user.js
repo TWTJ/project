@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const users = require('../../models/users')
 const crypto = require('crypto')
+const session = require('express-session');
 // const pbkdf2Password = require('pbkdf2-password');
 // const hasher = pabkdf2Password();
 
@@ -38,28 +39,28 @@ router.post('/signup', (req, res) => {
 })
 
 // user login
-router.post('/signin', async function (req, res){
+router.post('/signin', async function (req, res) {
     let body = req.body;
 
     let result = await users.findOne({
-            email:body.user_email
+        email: body.user_email
     });
     console.log(result, body)
     let dbPassword = result.password;
-    let inputPassword =body.user_pw;
+    let inputPassword = body.user_pw;
     let salt = result.salt;
     let hashPassword = crypto.createHash("sha512").update(inputPassword + salt).digest("hex");
 
     if (dbPassword === hashPassword) {
-        console.log ('로그인 성공')
-        res.redirect('/');
-        alert(" 로그인성공 ")
-    }else {
+        console.log('로그인 성공')
+        res.redirect('/product');
+        req.session.email = body.user_email;
+
+    } else {
+
         console.log('비밀번호 불일치')
         res.redirect('/signin')
-        alert("비밀번호가 맞지 않습니다")
     }
-
 });
 
 module.exports = router;

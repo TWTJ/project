@@ -14,6 +14,9 @@ router.get('/signin', function(req, res){
 router.get('/signup', function(req, res){
     res.render('signup', {title:'signup'});
 });
+router.get('/product', function(req, res){
+  res.render('product', {title:'product'});
+});
 
 
 module.exports = router;
