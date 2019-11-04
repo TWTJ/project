@@ -100,7 +100,7 @@ sudo su   //root권한으로 가는 명령어
 
 cd /src/github.com/hyperledger/fabric-samples/first-network (still at root)
 
-curl -sSL https://goo.gl/6wtTN5 | bash -s 1.2.0
+curl -sSL http://bit.ly/2ysbOFE | bash -s 1.4.0
 
 ```
 
