@@ -84,8 +84,8 @@ cd $GOPATH/src/github.com/hyperledger
 
 설치할 곳으로 들어간뒤
 ```
-
-sudo curl -sSL http://bit.ly/2ysbOFE | bash -s 1.4.0
+sudo su
+curl -sSL http://bit.ly/2ysbOFE | bash -s 1.4.0
 
 ```
 
