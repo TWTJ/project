@@ -7,11 +7,11 @@ const session = require('express-session');
 // const hasher = pabkdf2Password();
 
 // get user info
-router.get('/', (req, res) => {
-    return res.status(200).json({
-        msg: 'get user info'
-    })
-})
+// router.get('/', (req, res) => {
+//     return res.status(200).json({
+//         msg: 'get user info'
+//     })
+// })
 
 // regist user info
 router.post('/signup', (req, res) => {
@@ -53,8 +53,12 @@ router.post('/signin', async function (req, res) {
 
     if (dbPassword === hashPassword) {
         console.log('로그인 성공')
-        res.redirect('/product');
+        req.session.login = true;
         req.session.email = body.user_email;
+        req.session.save(function(){
+            return res.redirect('/product');
+        })
+       
 
     } else {
 
@@ -62,5 +66,15 @@ router.post('/signin', async function (req, res) {
         res.redirect('/signin')
     }
 });
+//user log out   
+router.get("/logout", (req, res) => {
+
+    req.session.destroy();
+    res.clearCookie('sid');
+    res.redirect('/');
+
+    // console.log(res)
+})
+
 
 module.exports = router;
