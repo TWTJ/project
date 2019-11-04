@@ -75,30 +75,15 @@ mkdir -p $GOPATH/src/github.com/hyperledger
 cd $GOPATH/src/github.com/hyperledger
 ```
 
-* Fabric-sample project git clone
 
+
+
+
+
+* fabirc-sameple+ binary tool 설치(root 권한으로 해줘야 함) 
+
+설치할 곳으로 들어간뒤
 ```
-git clone -b master https://github.com/hyperledger/fabric-samples.git
-```
-
-* 다운로드후
-
-```
-mkdir fabric-samples
-
-cd fabric-samples
-
-git checkout v1.2.0
-
-git branch
-```
-
-* 샘플에 필요한 binary tool 설치(root 권한으로 해줘야 함) 
-
-```
-sudo su   //root권한으로 가는 명령어
-
-cd /src/github.com/hyperledger/fabric-samples/first-network (still at root)
 
 curl -sSL http://bit.ly/2ysbOFE | bash -s 1.4.0
 
