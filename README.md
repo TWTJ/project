@@ -84,7 +84,6 @@ cd $GOPATH/src/github.com/hyperledger
 
 설치할 곳으로 들어간뒤
 ```
-sudo su   //root권한으로 가는 명령어
 
 curl -sSL http://bit.ly/2ysbOFE | bash -s 1.4.0
 
