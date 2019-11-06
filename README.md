@@ -108,7 +108,6 @@ sudo ./byfn.sh -m down
 * 구축하다가 에러 or 파일이 꼬일시
 
 ```
-sudo ./byfn.sh -m up
 
 sudo ./byfn.sh -m down
 
