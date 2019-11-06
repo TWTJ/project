@@ -62,27 +62,17 @@ npm --version
 
 git version
 ```
+node 8.11.1
+npm 5.6.0 으로 진행
 
 #### ================================================================== 개발환경 설정 끝
 
 
 
-* 하이퍼레저 샘플 다운로드
-
-```
-mkdir -p $GOPATH/src/github.com/hyperledger
-
-cd $GOPATH/src/github.com/hyperledger
-```
-
-
-
-
-
-
-* fabirc-sameple+ binary tool 설치(root 권한으로 해줘야 함) 
+* hyperledger fabirc-sameple + binary tool 설치(root 권한으로 해줘야 함) 
 
 설치할 곳으로 들어간뒤
+
 ```
 sudo su
 curl -sSL http://bit.ly/2ysbOFE | bash -s 1.4.3
