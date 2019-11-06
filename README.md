@@ -164,9 +164,9 @@ first-network/channel-artifacts 에서 Org1MSPanchors.tx, Org2MSPanchors.tx 파�
 
 #### ================================================================== 초기 설정 완료
 
-#### ================================================================== 노드 구동
+#### ================================================================== 피어 구동
 
-* 1. 노드 실행
+* 1. 피어 실행
 
 ```
 sudo docker-compose -f docker-compose-cli.yaml up
@@ -175,7 +175,7 @@ sudo docker-compose -f docker-compose-cli.yaml up
 
 
 
-* 2. 노드 접속
+* 2. 피어 접속
 
 새로운 터미널 창 오픈
 
@@ -326,6 +326,8 @@ CORE_PEER_ADDRESS=peer:7052 CORE_CHAINCODE_ID_NAME=mycc:0 ./sacc
 docker exec -it cli /bin/bash
 ```
 
+instantiate : 배포
+
 ```
 peer chaincode install -p chaincodedev/chaincode/sacc -n mycc -v 0
 
@@ -333,12 +335,33 @@ peer chaincode instantiate -n mycc -v 0 -c '{"Args":["a","10"]}' -C myc
 
 ```
 
-query,invoke
+-C : channel name
+
+query(조회), invoke(생성)
+
 ```
-peer chaincode invoke -n mycc -c '{"Args":["set","a","20"]}' -C myc
+peer chaincode invoke -n mycc -c '{"Args":["set","b","20"]}' -C myc
 
 peer chaincode query -n mycc -c '{"Args":["query","a"]}' -C myc
+
+peer chaincode query -n mycc -c '{"Args":["query","b"]}' -C myc
+
+export FABRIC_LOGGING_SPEC=INFO  --> 로그 단순화 (value값만 보기)
 ```
+
+peer chaincode list --instantiated -C [채널명] --> 해당 채널에 배포된 체인코드 확인
+
+```
+peer chaincode list --instantiated -C myc
+```
+
+2번째 터미널로 다시 이동 -> 실행중인 체인코드 종료
+컨테이너와 호스트가 fabr
+
+
+
+
+
 
 
 
