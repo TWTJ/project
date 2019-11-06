@@ -296,16 +296,16 @@ peer chaincode invoke -o orderer.example.com:7050 --tls true --cafile /opt/gopat
 
 #### ===================================================================== 직접 서버 구축 끝
 
-체인코드 개발 모드 (앞선 과정을 반복하기에 너무 복잡 --> 체인코드만 따로 분리해서 개발 배포)
+## 체인코드 개발 모드 (앞선 과정을 반복하기에 너무 복잡 --> 체인코드만 따로 분리해서 개발 배포)
 
 
-# 첫 번째 터미널
+##### 첫 번째 터미널
 
 /src/github.com/hyperledger/fabric-samples/chaincode-docker-devmode 이동
 
 docker-compose -f docker-compose-simple.yaml.up
 
-# 두 번째 터미널
+###### 두 번째 터미널
 
 docker exec -it chaincode /bin/bash
 
@@ -317,7 +317,7 @@ go build 하고
 
 CORE_PEER_ADDRESS=peer:7052 CORE_CHAINCODE_ID_NAME=mycc:0 ./sacc
 
-# 세 번째 터미널 (설치 배포)
+###### 세 번째 터미널 (설치 배포)
 
 docker exec -it cli /bin/bash
 
