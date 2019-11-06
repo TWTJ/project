@@ -119,7 +119,7 @@ export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin:~/fabric-samples/bin;
 
 * 1. 인증서 생성(cryptogen 이용, cryptogen 쓸때마다 새로우 키값고 인증서를 생성)
 
-모든 명령어는 /src/github.com/hyperledger/fabric-samples/first-network 에서 실행
+모든 명령어는 /fabric-samples/first-network 에서 실행
 
 
 
@@ -147,7 +147,7 @@ export CHANNEL_NAME=mychannel
 sudo ../bin/configtxgen  -profile TwoOrgsChannel -outputCreateChannelTx ./channel-artifacts/channel.tx -channelID $CHANNEL_NAME
 ```
 
-/src/github.com/hyperledger/fabric-samples/first-network/channel-artifacts 에서 channel.tx , genesis.block 파일 확인 (ls)
+first-network/channel-artifacts 에서 channel.tx , genesis.block 파일 확인 (ls)
 
 
 * 4. 앵커피어 정의 (외부기관에 존재하는 피어와 통신하는 피어)
@@ -159,7 +159,7 @@ sudo ../bin/configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./chann
 sudo ../bin/configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./channel-artifacts/Org2MSPanchors.tx -channelID $CHANNEL_NAME -asOrg Org2MSP
 ```
 
-/src/github.com/hyperledger/fabric-samples/first-network/channel-artifacts 에서 Org1MSPanchors.tx, Org2MSPanchors.tx 파일 확인
+first-network/channel-artifacts 에서 Org1MSPanchors.tx, Org2MSPanchors.tx 파일 확인
 
 
 #### ================================================================== 초기 설정 완료
@@ -301,32 +301,40 @@ peer chaincode invoke -o orderer.example.com:7050 --tls true --cafile /opt/gopat
 
 ##### 첫 번째 터미널
 
-/src/github.com/hyperledger/fabric-samples/chaincode-docker-devmode 이동
+fabric-samples/chaincode-docker-devmode 이동
 
+```
 docker-compose -f docker-compose-simple.yaml.up
+```
 
-##### 두 번째 터미널
+##### 두 번째 터미널 (체인코드 빌드)
 
+
+```
 docker exec -it chaincode /bin/bash
+```
 
+```
 cd sacc
 
-go build 하고 
-
-/opt/gopath/src 로 이동후
-
+go build
+```
 CORE_PEER_ADDRESS=peer:7052 CORE_CHAINCODE_ID_NAME=mycc:0 ./sacc
 
 ##### 세 번째 터미널 (설치 배포)
-
+```
 docker exec -it cli /bin/bash
+```
 
-peer chaincode install -p chaincodedev/chaincode/sacc -n mycc -v 0 
+```
+peer chaincode install -p chaincodedev/chaincode/sacc -n mycc -v 0
 
 peer chaincode instantiate -n mycc -v 0 -c '{"Args":["a","10"]}' -C myc
 
-query,invoke
+```
 
+query,invoke
+```
 peer chaincode invoke -n mycc -c '{"Args":["set","a","20"]}' -C myc
 
 peer chaincode query -n mycc -c '{"Args":["query","a"]}' -C myc
