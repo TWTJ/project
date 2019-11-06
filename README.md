@@ -8,6 +8,8 @@
 
 ```
 docker 설치 : https://blog.cosmosfarm.com/archives/248/우분투-18-04-도커-docker-설치-방법/
+
+sudo usermod -aG docker $USER 
 ```
 
 * Docker  Compose 버전 1.14.0 이상
