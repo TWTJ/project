@@ -1,5 +1,5 @@
 
-# Hyperledger fabric 개발환경설정
+# Hyperledger fabric 개발환경설정 (1.4.3)
 
 ## ubuntu(18.04)로 진행 (virtualbox)
 
@@ -85,7 +85,7 @@ cd $GOPATH/src/github.com/hyperledger
 설치할 곳으로 들어간뒤
 ```
 sudo su
-curl -sSL http://bit.ly/2ysbOFE | bash -s 1.4.0
+curl -sSL http://bit.ly/2ysbOFE | bash -s 1.4.3
 
 ```
 
