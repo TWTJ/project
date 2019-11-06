@@ -1,5 +1,5 @@
 
-# Hyperledger fabric 개발환경설정 (1.4.3)
+# Hyperledger fabric 개발환경설정 (1.4.1)
 
 ## ubuntu(18.04)로 진행 (virtualbox)
 
@@ -75,7 +75,7 @@ npm 5.6.0 으로 진행
 
 ```
 sudo su
-curl -sSL http://bit.ly/2ysbOFE | bash -s 1.4.3
+curl -sSL http://bit.ly/2ysbOFE | bash -s 1.4.1
 
 ```
 
