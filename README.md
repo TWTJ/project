@@ -305,7 +305,7 @@ peer chaincode invoke -o orderer.example.com:7050 --tls true --cafile /opt/gopat
 
 docker-compose -f docker-compose-simple.yaml.up
 
-###### 두 번째 터미널
+##### 두 번째 터미널
 
 docker exec -it chaincode /bin/bash
 
@@ -317,7 +317,7 @@ go build 하고
 
 CORE_PEER_ADDRESS=peer:7052 CORE_CHAINCODE_ID_NAME=mycc:0 ./sacc
 
-###### 세 번째 터미널 (설치 배포)
+##### 세 번째 터미널 (설치 배포)
 
 docker exec -it cli /bin/bash
 
