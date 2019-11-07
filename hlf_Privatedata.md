@@ -40,6 +40,7 @@ peer chaincode install -n marblesp -v 1.0 -p github.com/chaincode/marbles02_priv
 
 체인코드 배포
 
+(orderer_ca : 체인코드 배포전 검증)
 ```
 export ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
 
