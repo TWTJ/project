@@ -1,0 +1,12 @@
+# private data 실습
+
+서버 켜기
+
+```
+./byfn.sh up
+```
+
+cli 접속
+
+```
+docker exec -it cli bash
