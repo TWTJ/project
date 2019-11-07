@@ -24,7 +24,7 @@ export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin:~/fabric-samples/bin;
 
 
 ```
-sudo ../bin/cryptogen generate --config=./crypto-config.yaml (명령어)
+../bin/cryptogen generate --config=./crypto-config.yaml (명령어)
 
 -->(출력 값)   org1.example.com
 
@@ -35,7 +35,7 @@ sudo ../bin/cryptogen generate --config=./crypto-config.yaml (명령어)
 ```
 export FABRIC_CFG_PATH=$PWD
 
-sudo ../bin/configtxgen  -profile TwoOrgsOrdererGenesis -channelID (본인아이디) -outputBlock ./channel-artifacts/genesis.block 
+../bin/configtxgen  -profile TwoOrgsOrdererGenesis -channelID (본인아이디) -outputBlock ./channel-artifacts/genesis.block 
 ** -(본인아이디) 부분에 소문자 or 숫자만 가능 (대문자쓰면 나중에 에러)
 ```
 
@@ -44,7 +44,7 @@ sudo ../bin/configtxgen  -profile TwoOrgsOrdererGenesis -channelID (본인아이
 ```
 export CHANNEL_NAME=mychannel
 
-sudo ../bin/configtxgen  -profile TwoOrgsChannel -outputCreateChannelTx ./channel-artifacts/channel.tx -channelID $CHANNEL_NAME
+../bin/configtxgen  -profile TwoOrgsChannel -outputCreateChannelTx ./channel-artifacts/channel.tx -channelID $CHANNEL_NAME
 ```
 
 first-network/channel-artifacts 에서 channel.tx , genesis.block 파일 확인 (ls)
@@ -54,9 +54,9 @@ first-network/channel-artifacts 에서 channel.tx , genesis.block 파일 확인 
 
 다시 first-network 폴더에서,
 ```
-sudo ../bin/configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./channel-artifacts/Org1MSPanchors.tx -channelID $CHANNEL_NAME -asOrg Org1MSP
+../bin/configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./channel-artifacts/Org1MSPanchors.tx -channelID $CHANNEL_NAME -asOrg Org1MSP
 
-sudo ../bin/configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./channel-artifacts/Org2MSPanchors.tx -channelID $CHANNEL_NAME -asOrg Org2MSP
+../bin/configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./channel-artifacts/Org2MSPanchors.tx -channelID $CHANNEL_NAME -asOrg Org2MSP
 ```
 
 first-network/channel-artifacts 에서 Org1MSPanchors.tx, Org2MSPanchors.tx 파일 확인
@@ -69,7 +69,7 @@ first-network/channel-artifacts 에서 Org1MSPanchors.tx, Org2MSPanchors.tx 파�
 * 1. 피어 실행
 
 ```
-sudo docker-compose -f docker-compose-cli.yaml up
+docker-compose -f docker-compose-cli.yaml up
 
 ```
 
@@ -81,7 +81,7 @@ sudo docker-compose -f docker-compose-cli.yaml up
 
 클라이언트로 접속(각 피어로 접속해서 수정하기엔 너무 번거롭 --> 클라이언트에서 환경변수만 바꿈으로서, 피어로 접속가능
 ```
-sudo docker exec -it cli /bin/bash
+docker exec -it cli /bin/bash
 ```
 
 * 3. 채널 생성 
