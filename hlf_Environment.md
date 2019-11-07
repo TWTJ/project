@@ -64,3 +64,30 @@ npm --version
 git version
 ```
 (node 8.11.1, npm 5.6.0 으로 진행)
+
+* hyperledger fabirc-sameple + binary tool 설치
+
+설치할 곳으로 들어간뒤
+
+```
+curl -sSL http://bit.ly/2ysbOFE | bash -s 1.4.1
+
+```
+
+//새 터미널 창 열어 실행.
+
+* First-Network 실행:
+
+```
+cd first-network
+
+./byfn.sh -m generate
+
+./byfn.sh -m up
+```
+
+* First-network 종료:
+
+```
+./byfn.sh -m down
+```
