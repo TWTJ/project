@@ -1,4 +1,6 @@
-# 체인코드 개발 모드 (앞선 과정을 반복하기에 너무 복잡 --> 체인코드만 따로 분리해서 개발 배포) (미완성)
+# 체인코드 개발 모드 
+
+### (앞선 과정을 반복하기에 너무 복잡 --> 체인코드만 따로 분리해서 개발 배포) 
 
 
 ##### 첫 번째 터미널
@@ -20,8 +22,10 @@ docker exec -it chaincode /bin/bash
 cd sacc
 
 go build
-```
+
 CORE_PEER_ADDRESS=peer:7052 CORE_CHAINCODE_ID_NAME=mycc:0 ./sacc
+```
+
 
 ##### 세 번째 터미널 (설치 배포)
 ```
@@ -31,9 +35,12 @@ docker exec -it cli /bin/bash
 instantiate : 배포
 
 ```
+cd ..
+
 peer chaincode install -p chaincodedev/chaincode/sacc -n mycc -v 0
 
 peer chaincode instantiate -n mycc -v 0 -c '{"Args":["a","10"]}' -C myc
+
 
 ```
 
@@ -57,5 +64,3 @@ peer chaincode list --instantiated -C [채널명] --> 해당 채널에 배포된
 peer chaincode list --instantiated -C myc
 ```
 
-2번째 터미널로 다시 이동 -> 실행중인 체인코드 종료
-컨테이너와 호스트가 fabr
