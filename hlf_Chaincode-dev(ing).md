@@ -44,8 +44,6 @@ peer chaincode instantiate -n mycc -v 0 -c '{"Args":["a","10"]}' -C myc
 
 ```
 
--C : channel name
-
 query(조회), invoke(생성)
 
 ```
@@ -57,6 +55,7 @@ peer chaincode query -n mycc -c '{"Args":["query","b"]}' -C myc
 
 export FABRIC_LOGGING_SPEC=INFO  --> 로그 단순화 (value값만 보기)
 ```
+-C : channel name
 
 peer chaincode list --instantiated -C [채널명] --> 해당 채널에 배포된 체인코드 확인
 
