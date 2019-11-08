@@ -8,7 +8,7 @@
 fabric-samples/chaincode-docker-devmode 이동
 
 ```
-docker-compose -f docker-compose-simple.yaml.up
+docker-compose -f docker-compose-simple.yaml up
 ```
 
 ##### 두 번째 터미널 (체인코드 빌드)
