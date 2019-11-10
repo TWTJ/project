@@ -157,6 +157,10 @@ fabric-samples/chaincode/marbles02_private/collections_config.json 파일에 추
 fabric-samples/chaincode/marbles02_private/go/marbles_chaincode_private.go 파일 수정
 
 ![ex_screenshot](./img/n_c_p1.png)
+![ex_screenshot](./img/n_c_p2.png)
+![ex_screenshot](./img/n_c_p3.png)
+![ex_screenshot](./img/n_c_p4.png)
+![ex_screenshot](./img/n_c_p5.png)
 
 
 
