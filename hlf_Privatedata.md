@@ -162,6 +162,92 @@ fabric-samples/chaincode/marbles02_private/go/marbles_chaincode_private.go 파�
 ![ex_screenshot](./img/n_c_p4.png)
 ![ex_screenshot](./img/n_c_p5.png)
 
+### 실습
+
+```
+./byfn.sh up -c mychannel -s couchdb
+
+docker exec -it cli bash
+
+```
+
+#### 체인코드 설치+배포
+
+```
+peer chaincode install -n marblesp -v 1.0 -p github.com/chaincode/marbles02_private/go/
+
+export CORE_PEER_ADDRESS=peer1.org1.example.com:8051
+peer chaincode install -n marblesp -v 1.0 -p github.com/chaincode/marbles02_private/go/
+
+```
+
+Org2
+
+```
+export CORE_PEER_LOCALMSPID=Org2MSP
+export PEER0_ORG2_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt
+export CORE_PEER_TLS_ROOTCERT_FILE=$PEER0_ORG2_CA
+export CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp
+
+export CORE_PEER_ADDRESS=peer0.org2.example.com:9051
+peer chaincode install -n marblesp -v 1.0 -p github.com/chaincode/marbles02_private/go/
+
+export CORE_PEER_ADDRESS=peer1.org2.example.com:10051
+peer chaincode install -n marblesp -v 1.0 -p github.com/chaincode/marbles02_private/go/
+
+```
+
+체인코드 배포
+
+(orderer_ca : 체인코드 배포전 검증)
+```
+export ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
+
+peer chaincode instantiate -o orderer.example.com:7050 --tls --cafile $ORDERER_CA -C mychannel -n marblesp -v 1.0 -c '{"Args":["init"]}' -P "OR('Org1MSP.member','Org2MSP.member')" --collections-config  $GOPATH/src/github.com/chaincode/marbles02_private/collections_config.json
+
+```
+
+marble1 데이터 생성-배포
+
+```
+export MARBLE=$(echo -n "{\"name\":\"marble1\",\"color\":\"blue\",\"size\":35,\"owner\":\"tom\",\"price\":99}" | base64 | tr -d \\n)
+
+peer chaincode invoke -o orderer.example.com:7050 --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C mychannel -n marblesp -c '{"Args":["initMarble"]}'  --transient "{\"marble\":\"$MARBLE\"}"
+```
+
+marble1 데이터 조회
+
+* price와 owner은 조회되지 않음
+
+```
+peer chaincode query -C mychannel -n marblesp -c '{"Args":["readMarble","marble1"]}'
+```
+
+marble1 private 데이터 조회(owner)
+
+* org2이므로 확인가능
+
+```
+peer chaincode query -C mychannel -n marblesp -c '{"Args":["readMarblePrivateOwner","marble1"]}'
+```
+
+peer0.org1로 변경해서 확인 -> 조회x
+
+```
+export CORE_PEER_ADDRESS=peer0.org1.example.com:7051
+export CORE_PEER_LOCALMSPID=Org1MSP
+export CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
+export CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
+export PEER0_ORG1_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
+
+peer chaincode query -C mychannel -n marblesp -c '{"Args":["readMarblePrivateOwner","marble1"]}'
+```
+
+#### 블럭 쌓은후 데이터 삭제도 작동
+
+
+
+
 
 
 
