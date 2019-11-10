@@ -161,6 +161,7 @@ fabric-samples/chaincode/marbles02_private/go/marbles_chaincode_private.go 파�
 ![ex_screenshot](./img/n_c_p3.png)
 ![ex_screenshot](./img/n_c_p4.png)
 ![ex_screenshot](./img/n_c_p5.png)
+![ex_screenshot](./img/n_c_p6.png)
 
 ### 실습
 
