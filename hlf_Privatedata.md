@@ -131,6 +131,32 @@ private data 조회해서 삭제됐나 확인
 peer chaincode query -C mychannel -n marblesp -c '{"Args":["readMarblePrivateDetails","marble1"]}'
 ```
 
+===============================================================================================
+
+
+## Org2만 읽을수 있는 Collection 추가
+#### (owner을 Org2만 볼수있게 설정)
+
+fabric-samples/chaincode/marbles02_private/collections_config.json 파일에 추가
+
+* 1. Org2에서만 보임
+* 2. 1블럭후에 바로 삭제
+```
+ {
+   "name": "collectionMarblePrivateOwner",
+   "policy": "OR('Org2MSP.member')",
+   "requiredPeerCount": 0,
+   "maxPeerCount": 3,
+   "blockToLive":1,
+   "memberOnlyRead": true
+ }
+```
+
+
+
+fabric-samples/chaincode/marbles02_private/go/marbles_chaincode_private.go 파일 수정
+
+![ex_screenshot](./img/n_c_p1.png)
 
 
 
