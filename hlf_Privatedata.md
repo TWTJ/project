@@ -246,6 +246,16 @@ peer chaincode query -C mychannel -n marblesp -c '{"Args":["readMarblePrivateOwn
 
 #### 블럭 쌓은후 데이터 삭제도 작동
 
+## owner을 private data로 변경했으므로 transferMarble 함수를 변경해줘야 사용할 수 있음 
+
+fabric-samples/chaincode/marbles02_private/go/marbles_chaincode_private.go에서
+
+transferMarble 함수 수정
+
+![ex_screenshot](./img/n_c_p7.png)
+
+
+
 
 
 
