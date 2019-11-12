@@ -46,7 +46,9 @@ app.use('/API_USER', USERAPI);
 app.use('/signin', PAGEAPI);
 app.use('/signup', PAGEAPI);
 app.use('/product',PAGEAPI);
-// app.use('/sign_up', PAGEAPI);
+app.use('/receipt',PAGEAPI);
+app.use('/receipt2',PAGEAPI);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
