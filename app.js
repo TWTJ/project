@@ -23,7 +23,7 @@ const fs = require('fs');
 app.use(bodyParser.urlencoded({ extended: false }));
 
 //경로 수정(자신의 basic-network 위치로 지정)
-const ccpPath = path.resolve(__dirname, '..', '..', '..', 'fabric-samples', 'basic-network', 'connection.json');
+const ccpPath = path.resolve(__dirname, 'fabric', 'connection.json');
 const ccpJSON = fs.readFileSync(ccpPath, 'utf8');
 const ccp = JSON.parse(ccpJSON);
 
