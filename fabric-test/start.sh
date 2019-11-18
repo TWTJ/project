@@ -41,7 +41,7 @@ sleep 10
 docker exec peer0.org2.example.com peer channel join -b /etc/hyperledger/configtx/mychannel.block
 sleep 10
 docker exec peer0.org3.example.com peer channel join -b /etc/hyperledger/configtx/mychannel.block
-sleep 10
+# sleep 10
 docker exec cli_org1 peer chaincode install -n fabcar -v 1.0 -p github.com/fabcar/go
 docker exec cli_org2 peer chaincode install -n fabcar -v 1.0 -p github.com/fabcar/go
 docker exec cli_org3 peer chaincode install -n fabcar -v 1.0 -p github.com/fabcar/go
