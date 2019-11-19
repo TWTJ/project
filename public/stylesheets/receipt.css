@@ -1,0 +1,83 @@
+#invoice-POS{
+    box-shadow: 0 0 1in -0.25in rgba(0, 0, 0, 0.5);
+    padding:2mm;
+    margin: 0 auto;
+    width: 60mm;
+    background: #FFF;
+}
+    
+::selection {background: #3073f0; color: #FFF;}
+::moz-selection {background: #3073f0; color: #FFF;}
+
+ h2, h3, h4, h5, h6, p {
+  font-family: 'Varela Round', sans-serif;
+} 
+
+
+  h1{
+    font-family:'Pacifico',cursive;
+    font-size: 1.8em;
+    color: #222;
+  }
+  h2{font-size: .9em;}
+  h3{
+    font-size: 1.2em;
+    font-weight: 300;
+    line-height: 2em;
+  }
+  p{
+    font-size: .7em;
+    color: #666;
+    line-height: 1.2em;
+  }
+   
+  #top, #mid,#bot{ /* Targets all id with 'col-' */
+    border-bottom: 1px solid #EEE;
+  }
+  
+  #top{min-height: 90px;}
+  #mid{min-height: 90px;} 
+  #bot{ min-height: 50px;}
+  
+  #top .logo{
+    float: left;
+    height: 60px;
+	  width: 60px;
+  }
+  .info{
+    display: block;
+    float:left;
+    margin-left: 0;
+  }
+  .title{
+    float: right;
+  }
+  .title p{text-align: right;} 
+  table{
+    width: 100%;
+    border-collapse: collapse;
+  }
+  td{
+    padding: 5px 0 5px 15px;
+    border: 0px 
+  }
+  .tabletitle{
+    padding: 4px;
+    font-size: .5em;
+    background: #EEE;
+  }
+  .tabletotal{
+    padding: 5px;
+    font-size: .5em;
+    font-weight: bold;
+    background: #EEE;
+  }
+  .service{border-bottom: 1px solid #EEE;}
+  .item{width: 24mm;}
+  .itemtext{font-size: .5em;}
+  
+  #legalcopy{
+    margin-top: 5mm;
+  }
+  
+   
