@@ -30,7 +30,7 @@ const ccp = JSON.parse(ccpJSON);
 
 //Attach the middleware
 app.get('/fabric_index', function (req, res) {
-  fs.readFile('fabric/index.html', function (error, data) {
+  fs.readFile('fabric/index.ejs', function (error, data) {
               res.send(data.toString());
 
   });
