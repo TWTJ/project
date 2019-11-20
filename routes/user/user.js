@@ -27,7 +27,10 @@ router.post('/signup', (req, res) => {
         Id: body.user_Id,
         password: hashPassword,
         email: body.user_email,
+        age: body.user_age,
+        gender: body.gender,
         salt: salt
+
     }).then(result => {
         res.redirect('/signin')
 
@@ -57,10 +60,10 @@ router.post('/signin', async function (req, res) {
         console.log('로그인 성공')
         req.session.login = true;
         req.session.email = body.user_email;
-        req.session.save(function(){
+        req.session.save(function () {
             return res.redirect('/product');
         })
-       
+
 
     } else {
 

@@ -1,12 +1,24 @@
 const express = require('express')
-const route = express.Router()
+const router = express.Router()
+const product = require('../../models/product')
 
+router.get('/product1', (req, res) => {
 
-route.get('/', (req, res) => {
-    return res.status(200).json({
-        msg: '제품 리스트 보기'
+    product.findOne({
+        name: "sample1"
+    }).then(result => {
+        return res.json(result)
+    }).catch(err => {
+        console.log(err)
     })
+
+
+
+
 })
+
+
+
 
 
 
@@ -19,4 +31,4 @@ route.get('/', (req, res) => {
 //     })
 // })
 
-module.exports = route
+module.exports = router ;

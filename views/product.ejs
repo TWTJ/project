@@ -43,9 +43,12 @@
                         <a class="nav-link" href="/signup">Sign_Up</a>
                     </li>
                     &nbsp;&nbsp;
-                    <li class="nav-item">
-                        <button type="button" class="btn btn-primary" href="/signup">Logout</button>
+                    <li>
+                    <form name='fn' class="logout" action='/API_USER/user/logout' method='GET'>
+                    <button > Logout</button>
                     </li>
+                    </form>
+                                                                       
                 </ul>
             </div>
         </div>
@@ -59,11 +62,12 @@
             <div class="row mt-3">
                 <div class="col-md-5" style="margin: auto;">
                     <div class="product-demo">
-                        <a href="#pro1" class="pro2">
-                            <img src="images/9.jpg" alt=" " class="img-fluid" />
-                            <h4 class="p-mask" style="text-align: center;">MAC 1 - <span>$500</span></h4>
-                        </a>
-                    </div>
+                    <img src="images/9.jpg" alt=" " class="img-fluid" />
+                    <h4 class="p-mask" style="text-align: center;">MAC 1 - <span>$500</span></h4>
+                    <form action="/API_USER/product/product1" method="GET">
+                        <a class="nav-link"> <button>결제</button></a>
+                    </form>
+                   </div>
                 </div>
                 <div class="col-md-5 mt-md-0 mt-4" style="margin: auto;">
                     <div class="product-demo">
@@ -87,10 +91,11 @@
                         });	
                     </script>
                     <span class="fa fa-caret-right ml-1" aria-hidden="true"></span>
-                    <a class="close" href="#product">×</a>
+                    <a class="close" href="product">×</a>
                 </div>
             </div>
             <!-- //product popup 1 -->
+           
             <!-- product popup 2 -->
             <div id="pro2" class="pop-overlay">
                 <div class="popup">
@@ -103,7 +108,7 @@
                             text: "http://localhost:3000/receipt2"
                         });	
                     </script>
-                    <a class="close" href="#gallery">×</a>
+                    <a class="close" href="product">×</a>
                 </div>
             </div>
             <!-- //product popup 2 -->
