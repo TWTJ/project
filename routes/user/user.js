@@ -40,8 +40,10 @@ router.post('/signup', (req, res) => {
 
 // user login
 router.post('/signin', async function (req, res) {
-    let body = req.body;
 
+    let body = req.body;
+    console.log(body)
+    
     let result = await users.findOne({
         email: body.user_email
     });
@@ -57,6 +59,37 @@ router.post('/signin', async function (req, res) {
         req.session.email = body.user_email;
         req.session.save(function(){
             return res.redirect('/product');
+        })
+       
+
+    } else {
+
+        console.log('비밀번호 불일치')
+        res.redirect('/signin')
+    }
+    
+});
+
+router.post('/fabric_signin', async function (req, res) {
+    let body = req.body;
+
+    console.log()
+
+    let result = await users.findOne({
+        email: body.user_email
+    });
+    console.log(result, body)
+    let dbPassword = result.password;
+    let inputPassword = body.user_pw;
+    let salt = result.salt;
+    let hashPassword = crypto.createHash("sha512").update(inputPassword + salt).digest("hex");
+
+    if (dbPassword === hashPassword) {
+        console.log('로그인 성공')
+        req.session.login = true;
+        req.session.email = body.user_email;
+        req.session.save(function(){
+            return res.redirect('/fabric_index');
         })
        
 

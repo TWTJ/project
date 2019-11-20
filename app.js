@@ -7,7 +7,7 @@ var db = require('./models'); // db 모듈 불러오기
 var bodyParser  = require('body-parser'); //데이터 처리 미들웨어
 
 var PAGEAPI = require('./routes/page');
-var STROEAPI = require('./routes/store');
+var STOREAPI = require('./routes/store');
 var USERAPI = require('./routes/user');
 var app = express();
 var session = require('express-session'); // log-in session
@@ -30,7 +30,7 @@ const ccp = JSON.parse(ccpJSON);
 
 //Attach the middleware
 app.get('/fabric_index', function (req, res) {
-  fs.readFile('fabric/index.ejs', function (error, data) {
+  fs.readFile('views/fabric_index.ejs', function (error, data) {
               res.send(data.toString());
 
   });
@@ -247,14 +247,14 @@ app.use(session({
 
   }));
 app.use('/', PAGEAPI); 
-app.use('/API_STORE', STROEAPI);
+app.use('/API_STORE', STOREAPI);
 app.use('/API_USER', USERAPI);
 app.use('/signin', PAGEAPI);
 app.use('/signup', PAGEAPI);
 app.use('/product',PAGEAPI);
 app.use('/receipt',PAGEAPI);
 app.use('/receipt2',PAGEAPI);
-
+app.use('/fabric_index',PAGEAPI);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

@@ -10,9 +10,7 @@
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <link href="/stylesheets/sign.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Pacifico|Varela+Round|Rock+Salt" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-    crossorigin="anonymous"></script>
+
     <title>::TWTJ:: SIGN IN</title>
 </head>
 
@@ -54,7 +52,24 @@
                     <h2 class="text-center font-yoon">Sign In Now</h2>
                     <!-- submit 처리 기능 -> jQuery 로 하면 더 좋지만...하는법 모름(다음에 공부~) -->
                     <script>
-     
+                        function check() {
+                            const email = fn.user_email.value
+                            const pw = fn.user_pw.value
+
+                            if (email == "" & pw == "") {
+                                alert("정보를 입력하세요")
+                                return false;
+                            } else if (email == "") {
+                                alert("E-mail을 작성하세요")
+                                user_email.focus();
+                                return false;
+                            } else if (pw == "") {
+                                alert("비밀번호를 입력하세요");
+                                user_pw.focus();
+                                return false;
+                            }
+                            else return true;
+                        }
 
                         // if ($.POST['action'] == 'Update') {
                         //     //action for update here
@@ -68,33 +83,31 @@
                         // }
                         
 
-                    </script> <!-- method='post' -->
-                    <form class="login-form">
+                    </script>
+                    <form name='fn' class="login-form" onsubmit="return check()" action='/API_USER/user/signin'
+                        method='post'>
                         <div class="form-group">
                             <label for="exampleInputEmail1" class="text-uppercase font-yoon">E-mail</label>
-                            <input type="text" class="form-control" id="user_email" name="user_email">
+                            <input type="text" class="form-control" name="user_email">
                         </div>
                         <div class="form-group" style="margin-top:40px" ;>
                             <label for="exampleInputPassword1" class="text-uppercase font-yoon">Password</label>
-                            <input type="password" class="form-control" id="user_pw" name="user_pw">
+                            <input type="password" class="form-control" name="user_pw">
                         </div>
                         <div class="form-check" style="margin-top:30px" ;>
                             <label class="form-check-label">
                                 <input type="checkbox" class="form-check-input font-yoon">
                                 <small>Remember Me</small>
                             </label>
-                            <button type="button" id="Login">Submit</button>
-                            <button type="button" id="LoginCompany">Submit as company</button>
+                            <button type="submit">Submit</button>
                            
                         </div>
                     </form>
-                    <!--
                     <form name='fn' class="login-form" onsubmit="return check()" action='/API_USER/user/fabric_index'
                         method='post'>
                       <button type="submit" style="margin-top:20px" ;>Submit as company</button>
                     </form>
-                    -->
-                    <div class="copy-text">Created with <i class="fa fa-heart"></i> by TWTJ</div>
+                      <div class="copy-text">Created with <i class="fa fa-heart"></i> by TWTJ</div>
 
                 </div>
                 <div class="col-md-8 banner-sec photo-box">
@@ -114,58 +127,6 @@
             </div>
         </div>
     </section>
-
-    <script>
-  $("#Login").click(function(){  
-    $.post('/API_USER/user/signin',
-      { 
-        'user_email': $('#user_email').val(), 
-        'user_pw': $('#user_pw').val()
-      },
-      window.location = '/product'
-    )
-  });
-
-  $("#LoginCompany").click(function(){  
-    $.post('/API_USER/user//fabric_signin',
-      { 
-        'user_email': $('#user_email').val(), 
-        'user_pw': $('#user_pw').val()
-      },
-      window.location = '/fabric_index'
-    )
-  });
-    /*
-        $("#Login").click(function(){  
-            const loginSubmitUrl = '/user/signin'
-            const email = $("#user_email").val()
-            const pwd = $("#user_pw").val()
-
-            const formData = {
-                email: email,
-                pwd: pwd,
-            }
-            console.log(email)
-            console.log(pwd)
-            console.log(formData)
-
-            $.ajax({      
-                type:"POST",  
-                url: loginSubmitUrl,   
-                contentType: 'application/json; charset=utf-8',
-
-                body:formData,      
-                //success:function(args){   
-                //    $("#result").html(args);      
-                //},   
-                //error:function(e){  
-                //    alert(e.responseText);  
-                //}  
-            });  
-        
-        });  
-   */
-    </script>
 </body>
 
 </html>

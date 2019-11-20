@@ -20,8 +20,17 @@ router.get('/product', function(req, res){
   if(!req.session.login){
     return res.redirect("/")
   }
-  return res.render('product', {title:'product'});
+  return res.render('product.ejs');
 });
+
+router.get('/fabric_index', function(req, res){
+  // console.log(req.session)
+  if(!req.session.login){
+    return res.redirect("/")
+  }
+  return res.render('fabric_index', {title:'fabric_index'});
+});
+
 
 router.get('/receipt', function(req, res){
   let { email } = req.session;

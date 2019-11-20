@@ -6,6 +6,7 @@ const product = require('./product.js')
 const user = require('./user.js')
 const payment = require('./payment.js')
 
+
 //route.use('/bucket', bucket)
 route.use('/product', product)
 route.use('/user', user)
