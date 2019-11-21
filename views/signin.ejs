@@ -10,6 +10,7 @@
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <link href="/stylesheets/sign.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Pacifico|Varela+Round|Rock+Salt" rel="stylesheet">
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
     integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
     crossorigin="anonymous"></script>
@@ -116,25 +117,81 @@
     </section>
 
     <script>
-  $("#Login").click(function(){  
-    $.post('/API_USER/user/signin',
-      { 
-        'user_email': $('#user_email').val(), 
-        'user_pw': $('#user_pw').val()
-      },
-      window.location = '/product'
-    )
-  });
+    $("#Login").click(function(){
+        let admin =  $('#user_email').val()  
+        $.ajax({
+        url: "/API_USER/user/signin",
+        type: "post",
+        dataType: "json",
+        data: {
+            'user_email': $('#user_email').val(), 
+            'user_pw': $('#user_pw').val(),
+            'admin' : admin.substring(0,5)
+        },
+    success: function(data, body, {status}){
+            // if(status === 202){
+            //     window.location.href ="/product" 
+            // } else if(status === 200){
+            //     alert("안")
+            //}
+            let statusMsg = {
+                "202" : function() {
+                    window.location.href ="/product"
+                },
+                "200" : function() {alert("로그인 실패")}
+            }
+            console.log(statusMsg)
+            let msg = statusMsg[status]
+            if(msg) msg()
+        }    
+    });
+})
 
-  $("#LoginCompany").click(function(){  
-    $.post('/API_USER/user//fabric_signin',
+//   $("#Login").click(function(){  
+//     $.ajaxpost('/API_USER/user/signin',
+//       { 
+//         'user_email': $('#user_email').val(), 
+//         'user_pw': $('#user_pw').val()
+//       },
+//       window.location = '/product'
+//     )
+//   });
+    $("#LoginCompany").click(function(){  
+        let admin =  $('#user_email').val()
+        $.ajax({
+        url: "/API_USER/user/fabric_signin",
+        type: "post",
+        dataType: "json",
+        data: {
+            'user_email': $('#user_email').val(), 
+            'user_pw': $('#user_pw').val(),
+            'admin' : admin.substring(0,5)
+        },
+    success: function(data, body, {status}){
+            // if(status === 202){
+            //     window.location.href ="/product" 
+            // } else if(status === 200)
+            //     alert("안")
+            //}
+            let statusMsg = {
+                "202" : function() {window.location.href ="/fabric_index"},
+                "200" : function() {alert("로그인 실패")}
+            }
+            console.log(statusMsg)
+            let msg = statusMsg[status]
+            if(msg) msg()
+        }    
+    });
+}) 
+ 
+    /*$.post('/API_USER/user/fabric_signin',
       { 
         'user_email': $('#user_email').val(), 
         'user_pw': $('#user_pw').val()
       },
       window.location = '/fabric_index'
     )
-  });
+  });*/
     /*
         $("#Login").click(function(){  
             const loginSubmitUrl = '/user/signin'

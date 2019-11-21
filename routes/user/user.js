@@ -43,38 +43,87 @@ router.post('/signup', (req, res) => {
 
 // user login
 router.post('/signin', async function (req, res) {
+    let {user_email, user_pw, admin}= req.body;
 
-    let body = req.body;
-    console.log(body)
-    
-    let result = await users.findOne({
-        email: body.user_email
+    if(admin ==='admin'){
+        console.log('관계자가 아닙니다')
+        return res.status(200).json({});
+    }   
+
+   /* let result = await users.findOne({
+        email: user_email
+    });*/
+    let result = await users.findOne({email: user_email}, function(err, cursor){
+        if(!cursor){
+            return res.status(200).json({});        
+        }
+        
+        //cursor.toArray(callback);
+        
     });
-    console.log(result, body)
+    //console.log(result, body)
     let dbPassword = result.password;
-    let inputPassword = body.user_pw;
+    //let inputPassword = body.user_pw;
     let salt = result.salt;
-    let hashPassword = crypto.createHash("sha512").update(inputPassword + salt).digest("hex");
+    let hashPassword = crypto.createHash("sha512").update(user_pw + salt).digest("hex");
 
     if (dbPassword === hashPassword) {
         console.log('로그인 성공')
         req.session.login = true;
-        req.session.email = body.user_email;
+        req.session.email = user_email;
         req.session.save(function () {
-            return res.redirect('/product');
+            return res.status(202).json({});
         })
 
 
     } else {
-
         console.log('비밀번호 불일치')
-        res.redirect('/signin')
+        return res.status(200).json({});
     }
     
 });
 
 router.post('/fabric_signin', async function (req, res) {
-    let body = req.body;
+    let {user_email, user_pw, admin}= req.body;
+
+    if(admin !=='admin'){
+        console.log('관계자가 아닙니다')
+        return res.status(200).json({});
+    }   
+
+    let result = await users.findOne({email: user_email}, function(err, cursor){
+        if(!cursor){
+            return res.status(200).json({});        
+        }
+    
+    /*let result = await users.findOne({
+        email: user_email
+    */
+   });
+    
+    //console.log(result, body)
+    let dbPassword = result.password;
+    //let inputPassword = body.user_pw;
+    let salt = result.salt;
+    let hashPassword = crypto.createHash("sha512").update(user_pw + salt).digest("hex");
+
+    if (dbPassword === hashPassword) {
+        console.log('로그인 성공')
+        req.session.login = true;
+        req.session.email = user_email;
+        req.session.save(function () {
+            return res.status(202).json({});
+        })
+
+
+    } else {
+        console.log('비밀번호 불일치')
+        return res.status(200).json({});
+    }
+    
+});
+  
+    /*let body = req.body;
 
     console.log()
 
@@ -101,7 +150,7 @@ router.post('/fabric_signin', async function (req, res) {
         console.log('비밀번호 불일치')
         res.redirect('/signin')
     }
-});
+});*/
 //user log out   
 router.get("/logout", (req, res) => {
 
