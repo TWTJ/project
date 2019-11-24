@@ -115,12 +115,15 @@ app.post('/api/createuser/', async function (req, res) {
 
     // Get the contract from the network.
     const contract = network.getContract('twtj');
+    const contractGender = network.getContract('gender');
 
     // Submit the specified transaction.
     // createCar transaction - requires 5 argument, ex: ('createCar', 'CAR12', 'Honda', 'Accord', 'Black', 'Tom')
     // changeCarOwner transaction - requires 2 args , ex: ('changeCarOwner', 'CAR10', 'Dave')
     //        await contract.submitTransaction('createCar', 'CAR11', 'Hnda', 'Aord', 'Bla', 'Tom');
-    await contract.submitTransaction('initUser', Email, Age, Gender, Product, Price);
+    await contract.submitTransaction('initUser', Email, Age, Gender);
+    await contractGender.submitTransaction('addGender', Gender, Product, Price);
+
     console.log('Transaction has been submitted');
 
     // Disconnect from the gateway.

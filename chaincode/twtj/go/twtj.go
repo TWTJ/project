@@ -23,11 +23,6 @@ type user struct {
 	Gender string `json:"gender"`
 }
 
-type privateGender struct {
-	Product []string `json:"product"`
-	Price   []int    `json:"price"`
-}
-
 type privateAge struct {
 	Product []string `json:"product"`
 	Price   []int    `json:"price"`
@@ -54,9 +49,13 @@ func (s *SmartContract) Invoke(APIstub shim.ChaincodeStubInterface) sc.Response 
 
 	if function == "initUser" {
 		return s.initUser(APIstub, args)
-	} else if function == "readPrivateGender" {
-		return s.readPrivateGender(APIstub, args)
 	}
+	// else if function == "readPrivateGender" {
+	// 	return s.readPrivateGender(APIstub, args)
+	// }
+	// else if function == "initGender" {
+	// 	return s.initGender(APIstub, args)
+	// }
 	// else if function == "queryAllUsers" {
 	// 	return s.queryAllUsers(APIstub)
 	// }
@@ -113,7 +112,7 @@ func (s *SmartContract) initUser(APIstub shim.ChaincodeStubInterface, args []str
 	}
 
 	//save user
-	APIstub.PutState(args[0], userJSONasBytes)
+	APIstub.PutState(email, userJSONasBytes)
 	// private_GenderAsBytes, err := APIstub.GetPrivateData("collectionGender", args[0])
 	// if err != nil {
 	// 	return shim.Error("Failed to get user :" + err.Error())
@@ -139,22 +138,23 @@ func (s *SmartContract) initUser(APIstub shim.ChaincodeStubInterface, args []str
 	// }
 
 	//기록이없으면 방금 받은값 넣기
-	var arrproduct []string
-	arrproduct = append(arrproduct, args[3])
-	price, _ := strconv.Atoi(args[4])
-	var arrprice []int
-	arrprice = append(arrprice, price)
+	// var arrproduct []string
+	// arrproduct = append(arrproduct, args[3])
+	// price, _ := strconv.Atoi(args[4])
+	// var arrprice []int
+	// arrprice = append(arrprice, price)
 
-	privateGender := &privateGender{
-		Product: arrproduct,
-		Price:   arrprice,
-	}
+	// privateGender := &privateGender{
+	// 	Product: arrproduct,
+	// 	Price:   arrprice,
+	// }
 
-	privateGenderBytes, err := json.Marshal(privateGender)
-	if err != nil {
-		return shim.Error(err.Error())
-	}
-	err = APIstub.PutPrivateData("collectionGender", email, privateGenderBytes)
+	// privateGenderBytes, err := json.Marshal(privateGender)
+	// if err != nil {
+	// 	return shim.Error(err.Error())
+	// }
+	// err = APIstub.PutPrivateData("collectionGender", email, privateGenderBytes)
+
 	//입력값 받기
 
 	// twtjs := []user{
@@ -174,73 +174,7 @@ func (s *SmartContract) initUser(APIstub shim.ChaincodeStubInterface, args []str
 	return shim.Success(nil)
 }
 
-func (s *SmartContract) readPrivateGender(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
-	if len(args) != 1 {
-		return shim.Error("Incorrect number of arguments. Expecting name of the marble to query")
-	}
-	var email = args[0]
-	valsAsbytes, err := APIstub.GetPrivateData("collectionGender", email)
-	if err != nil {
-		return shim.Error("errorrererere" + err.Error())
-	} else if valsAsbytes == nil {
-		return shim.Error("private Gender does not exist")
-	}
-	return shim.Success(valsAsbytes)
-}
-
-// func (s *SmartContract) queryAllUsers(APIstub shim.ChaincodeStubInterface) sc.Response {
-
-// 	startKey := "TWTJ0"
-// 	endKey := "TWTJ999"
-
-// 	resultsIterator, err := APIstub.GetStateByRange(startKey, endKey)
-// 	if err != nil {
-// 		return shim.Error(err.Error())
-// 	}
-// 	defer resultsIterator.Close()
-
-// 	// buffer is a JSON array containing QueryResults
-// 	var buffer bytes.Buffer
-// 	buffer.WriteString("[")
-
-// 	bArrayMemberAlreadyWritten := false
-// 	for resultsIterator.HasNext() {
-// 		queryResponse, err := resultsIterator.Next()
-// 		if err != nil {
-// 			return shim.Error(err.Error())
-// 		}
-// 		// Add a comma before array members, suppress it for the first array member
-// 		if bArrayMemberAlreadyWritten == true {
-// 			buffer.WriteString(",")
-// 		}
-// 		buffer.WriteString("{\"Key\":")
-// 		buffer.WriteString("\"")
-// 		buffer.WriteString(queryResponse.Key)
-// 		buffer.WriteString("\"")
-
-// 		buffer.WriteString(", \"Record\":")
-// 		// Record is a JSON object, so we write as-is
-// 		buffer.WriteString(string(queryResponse.Value))
-// 		buffer.WriteString("}")
-// 		bArrayMemberAlreadyWritten = true
-// 	}
-// 	buffer.WriteString("]")
-
-// 	fmt.Printf("- queryAllUsers:\n%s\n", buffer.String())
-
-// 	return shim.Success(buffer.Bytes())
-// }
-
-// func (s *SmartContract) queryPrivateGender(stub shim.ChaincodeStubInterface, args []string) sc.Response {
-
-// 	var gender = args[3]
-// 	var product = args[4]
-// 	var price = args[5]
-
-// 	valAsbtes, err := stub.GetPrivateData("collectionGender")
-
-// 	return shim.Success(nil)
-// }
+// func (s *Smart
 
 // The main function is only relevant in unit test mode. Only included here for completeness.
 func main() {
