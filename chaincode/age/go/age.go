@@ -14,11 +14,11 @@ type AgeContract struct {
 
 type agePurchase struct {
 	Product []string `json:"product"`
-	Price   []int    `json:"price"`
+	Price   []string `json:"price"`
 }
 type agePurchaseResult struct {
 	Product []string `json:"product"`
-	Price   []int    `json:"price"`
+	Price   []string `json:"price"`
 }
 
 func (s *AgeContract) Init(APIstub shim.ChaincodeStubInterface) sc.Response {
@@ -40,7 +40,7 @@ func (s *AgeContract) Invoke(APIstub shim.ChaincodeStubInterface) sc.Response {
 
 func (s *AgeContract) initAge(APIstub shim.ChaincodeStubInterface) sc.Response {
 	var product []string
-	var price []int
+	var price []string
 	agePurchase := &agePurchase{
 		Product: product,
 		Price:   price,
@@ -68,9 +68,7 @@ func (s *AgeContract) addAge(APIstub shim.ChaincodeStubInterface, args []string)
 	}
 	var strAge = strconv.Itoa(age)
 	var arrproduct []string
-	var arrprice []int
-
-	price, _ := strconv.Atoi(args[2])
+	var arrprice []string
 
 	getData, err := APIstub.GetState(strAge)
 	if err != nil {
@@ -82,7 +80,7 @@ func (s *AgeContract) addAge(APIstub shim.ChaincodeStubInterface, args []string)
 	json.Unmarshal(getData, &genderPurchase)
 
 	arrproduct = append(genderPurchase.Product, args[1])
-	arrprice = append(genderPurchase.Price, price)
+	arrprice = append(genderPurchase.Price, args[2])
 	shim.Error(arrproduct[0])
 
 	agePurchaseResult := &agePurchaseResult{
