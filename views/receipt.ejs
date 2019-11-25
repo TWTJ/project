@@ -54,7 +54,7 @@
 
                     <tr class="service">
                         <td class="tableitem">
-                            <p class="itemtext" id="product1">MAC 1</p>
+                            <p class="itemtext" id="product1">MAC1</p>
                         </td>
                         <td class="tableitem">
                             <p class="itemtext" id="num">1</p>
@@ -65,7 +65,7 @@
                     </tr>
                     <tr class="service">
                         <td class="tableitem">
-                            <p class="itemtext" id="product2">MAC 2</p>
+                            <p class="itemtext" id="product2">MAC2</p>
                         </td>
                         <td class="tableitem">
                             <p class="itemtext" id="num">1</p>
@@ -96,8 +96,14 @@
                 </p>
             </div>
 
+
         </div>
         <!--End InvoiceBot-->
+        <!-- <form action="/api/create"> -->
+            <div class="but" style="text-align:center">
+                <button id="create" style="margin: auto">Confirm</button>
+            </div>
+        <!-- </form> -->
     </div>
     <!--End Invoice-->
 
@@ -115,6 +121,27 @@
         }
         console.log(pur1);
         console.log(pur2);
+
+$('#create').click(function(){
+    $.ajax({
+        url :"/api/create",
+        type:"post",
+        data :{
+            "product1" : $('#product1').text(),
+            "price1" : 500,
+            "product2" : $('#product2').text(),
+            "price2" : 600,
+        },
+        success:function(){
+            // window.alert("성공")
+            // location.href="/index"
+        },
+        error:function(err){
+            // window.alert(err)
+        }
+    })
+})
+
 
     </script>
 </body>

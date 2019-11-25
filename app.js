@@ -138,6 +138,18 @@ app.post('/api/createuser/', async function (req, res) {
 
 });
 
+// app.post('/api/create/', async function (req, res) {
+//     var Email=req.session
+//     // var Product1 = req.body.product1;
+//     // var Price1 = req.body.price1;
+//     // var Product2 = req.body.product2;
+//     // var Price2 = req.body.price2;
+//     console.log(Email)
+//     // console.log(Product1)
+//     // console.log(500)
+
+// });
+
 
 
 //========================================================
